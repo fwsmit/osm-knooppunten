@@ -37,5 +37,5 @@ class OSMContentHandler(xml.sax.ContentHandler):
 
 def import_osm(filename):
     nodes = []
-    xml.sax.parse('data/best.osm', OSMContentHandler(nodes))
+    xml.sax.parse(filename, OSMContentHandler(nodes))
     return nodes

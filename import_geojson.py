@@ -2,7 +2,7 @@ import geojson
 from node import Node
 
 def import_geojson(filename):
-    with open("data/groningen.geojson", 'r') as file:
+    with open(filename, 'r') as file:
         data = geojson.load(file)
         print("Geojson data imported")
 
