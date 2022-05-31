@@ -31,7 +31,7 @@ class OSMContentHandler(xml.sax.ContentHandler):
         if name == "node":
             print('rwn_ref:', self.rwn_ref)
             print('rcn_ref:', self.rcn_ref)
-            self.nodes.append(Node(x=0, y=0, rwn_ref=self.rwn_ref, rcn_ref=self.rcn_ref))
+            self.nodes.append(Node(lat=0, lon=0, rwn_ref=self.rwn_ref, rcn_ref=self.rcn_ref))
 
 
 

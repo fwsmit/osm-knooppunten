@@ -14,15 +14,12 @@ def import_geojson(filename):
         ref_id = node_data['properties']['KNOOPP_NR']
         if node_data['geometry']:
             coords = node_data['geometry']['coordinates']
-            coord_x = coords[0]
-            coord_y = coords[1]
+            coord_lon = coords[0]
+            coord_lat = coords[1]
         else:
-            coord_x = None
-            coord_y = None
+            coord_lon = None
+            coord_lat = None
 
-        nodes.append(Node(x=coord_x, y=coord_y, rwn_ref=ref_id, rcn_ref=-1))
+        nodes.append(Node(lon=coord_lon, lat=coord_lat, rwn_ref=ref_id, rcn_ref=-1))
 
     return nodes
-
-    #  for node in nodes:
-        #  print(node.__geo_interface__)

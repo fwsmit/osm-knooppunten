@@ -1,11 +1,11 @@
 class Node():
-    def __init__(self, x, y, rwn_ref, rcn_ref):
-        self.x = x
-        self.y = y
+    def __init__(self, lat, lon, rwn_ref, rcn_ref):
+        self.lat = lat
+        self.lon = lon
         self.rwn_ref = rwn_ref
         self.rcn_ref = rcn_ref
 
     @property
     def __geo_interface__(self):
-        return {"geometry": {"coordinates": (self.x, self.y), "type": "Point"},
+        return {"geometry": {"coordinates": (self.lat, self.lon), "type": "Point"},
                 "properties": {"rwn_ref": self.rwn_ref, "rcn_ref": self.rcn_ref}, "type": "Feature"}
