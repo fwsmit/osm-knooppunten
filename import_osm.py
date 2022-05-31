@@ -12,18 +12,11 @@ class OSMContentHandler(xml.sax.ContentHandler):
         self.nodes = nodes
 
     def startElement(self, name, attrs):
-        print('start:', name)
-        #  self.current_data = name
-        print('attributes:')
-        for attr in attrs.getNames():
-            print("    " + attr + ": " + attrs[attr]);
-
         if name == "node":
             self.lat = attrs["lat"]
             self.lon = attrs["lon"]
 
         if name == "tag":
-            print("name is tag")
             key = attrs["k"]
             value = attrs["v"]
             if key == "rwn_ref":
@@ -32,11 +25,7 @@ class OSMContentHandler(xml.sax.ContentHandler):
                 self.rcn_ref = value
 
     def endElement(self, name):
-        print('end:', name)
-
         if name == "node":
-            print('rwn_ref:', self.rwn_ref)
-            print('rcn_ref:', self.rcn_ref)
             self.nodes.append(Node(lat=self.lat, lon=self.lon, rwn_ref=self.rwn_ref, rcn_ref=self.rcn_ref))
 
 
