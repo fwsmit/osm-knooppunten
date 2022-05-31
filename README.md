@@ -1,5 +1,9 @@
 This programs compares OSM walking route data to that of other data sets.
 
+# Dependencies
+
+This program depends on python-geojson for importing geojson data.
+
 # Data sources
 
 OSM data: https://knooppuntnet.nl/nl/analysis/hiking
