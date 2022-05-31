@@ -7,6 +7,8 @@ class OSMContentHandler(xml.sax.ContentHandler):
         xml.sax.ContentHandler.__init__(self)
         self.rwn_ref = None
         self.rcn_ref = None
+        self.lat = None
+        self.lon = None
         self.nodes = nodes
 
     def startElement(self, name, attrs):
@@ -15,6 +17,10 @@ class OSMContentHandler(xml.sax.ContentHandler):
         print('attributes:')
         for attr in attrs.getNames():
             print("    " + attr + ": " + attrs[attr]);
+
+        if name == "node":
+            self.lat = attrs["lat"]
+            self.lon = attrs["lon"]
 
         if name == "tag":
             print("name is tag")
@@ -31,7 +37,7 @@ class OSMContentHandler(xml.sax.ContentHandler):
         if name == "node":
             print('rwn_ref:', self.rwn_ref)
             print('rcn_ref:', self.rcn_ref)
-            self.nodes.append(Node(lat=0, lon=0, rwn_ref=self.rwn_ref, rcn_ref=self.rcn_ref))
+            self.nodes.append(Node(lat=self.lat, lon=self.lon, rwn_ref=self.rwn_ref, rcn_ref=self.rcn_ref))
 
 
 
