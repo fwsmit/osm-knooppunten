@@ -1,7 +1,7 @@
 import geojson
 from node import Node
 
-def import_geojson(filename):
+def import_geojson(filename, rwn_name = None, rcn_name = None):
     with open(filename, 'r') as file:
         data = geojson.load(file)
         print("Geojson data imported")
@@ -11,7 +11,14 @@ def import_geojson(filename):
     print(len(data['features']))
 
     for node_data in data['features']:
-        ref_id = node_data['properties']['KNOOPP_NR']
+        rwn_ref_id = -1
+        if rwn_name:
+            rwn_ref_id = node_data['properties'][rwn_name]
+
+        rcn_ref_id = -1
+        if rcn_name:
+            rcn_ref_id = node_data['properties'][rcn_name]
+
         if node_data['geometry']:
             coords = node_data['geometry']['coordinates']
             coord_lon = coords[0]
@@ -20,6 +27,6 @@ def import_geojson(filename):
             coord_lon = None
             coord_lat = None
 
-        nodes.append(Node(lon=coord_lon, lat=coord_lat, rwn_ref=ref_id, rcn_ref=-1))
+        nodes.append(Node(lon=coord_lon, lat=coord_lat, rwn_ref=rwn_ref_id, rcn_ref=rcn_ref_id))
 
     return nodes
