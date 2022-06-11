@@ -1,7 +1,7 @@
 class Node():
     def __init__(self, lat, lon, rwn_ref, rcn_ref):
-        self.lat = lat
-        self.lon = lon
+        self.lat = float(lat)
+        self.lon = float(lon)
         self.rwn_ref = rwn_ref
         self.rcn_ref = rcn_ref
 

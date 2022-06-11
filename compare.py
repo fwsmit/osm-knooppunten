@@ -21,7 +21,7 @@ def find_matching_point(node_ext, nodes_osm):
     closest_node = None
     best_dist_sq = math.inf
     for node in nodes_osm:
-        if node.rwn_ref == node_ext.rwn_ref and node.rcn_ref == node_ext.rcn_ref:
+        if node.rwn_ref == node_ext.rwn_ref or node.rcn_ref == node_ext.rcn_ref:
             dist_sq = dist_simple_sq(node.lat, node.lon, node_ext.lat, node_ext.lon)
             if dist_sq < best_dist_sq:
                 best_dist_sq = dist_sq
@@ -29,6 +29,6 @@ def find_matching_point(node_ext, nodes_osm):
 
     if closest_node:
         actual_dist = dist_complicated(closest_node.lat, closest_node.lon, node_ext.lat, node_ext.lon)
-        print("Distance", actual_dist)
+        #  print("Distance", actual_dist, "meters")
 
     return closest_node
