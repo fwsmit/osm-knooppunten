@@ -20,9 +20,9 @@ class OSMContentHandler(xml.sax.ContentHandler):
             key = attrs["k"]
             value = attrs["v"]
             if key == "rwn_ref":
-                self.rwn_ref = value
+                self.rwn_ref = value.lstrip("0")
             if key == "rcn_ref":
-                self.rcn_ref = value
+                self.rcn_ref = value.lstrip("0")
 
     def endElement(self, name):
         if name == "node":
