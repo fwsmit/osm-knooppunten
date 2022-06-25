@@ -35,12 +35,13 @@ def import_geojson(filename, rwn_name = None, rcn_name = None, filter_regio = No
     return nodes
 
 def export_geojson(nodes, filename):
-    points = []
+    features = []
     for node in nodes:
         point = geojson.Point((node.lon, node.lat))
-        points.append(point)
+        feature = geojson.Feature(geometry=point, properties={"rwn knooppuntnummer": node.rwn_ref, "rcn knooppuntnummer": node.rcn_ref})
+        features.append(feature)
 
-    dump = geojson.dumps(points)
+    dump = geojson.dumps(features)
 
     with open(filename, 'w') as f:
         f.write(dump)
