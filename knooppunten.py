@@ -6,7 +6,7 @@ import math
 def main():
     nodes_osm = import_osm("data/groningen.osm")
     #  nodes_ext = import_geojson("data/groningen.geojson")
-    nodes_ext = import_geojson("data/Wandelknooppunten (wgs84).json", rwn_name="knooppuntnummer", filter_regio="Groningen")
+    nodes_ext = import_geojson("data/Wandelknooppunten (wgs84).geojson", rwn_name="knooppuntnummer", filter_regio="Groningen")
 
     #  print("OSM nodes")
     #  for n in nodes_osm:
