@@ -42,6 +42,8 @@ def main():
     print("Poor matches: (10-100m)", len(poor_matches))
     print("Non matches: (>100m))", len(non_matches))
 
+    export_geojson(great_matches, "great_matches.geojson")
+    export_geojson(great_matches_osm, "great_matches_osm.geojson")
     export_geojson(non_matches, "non_matches.geojson")
     export_geojson(poor_matches, "poor_matches.geojson")
     export_geojson(poor_matches_osm, "poor_matches_osm.geojson")
