@@ -29,6 +29,5 @@ def find_matching_point(node_ext, nodes_osm):
 
     if closest_node:
         actual_dist = dist_complicated(closest_node.lat, closest_node.lon, node_ext.lat, node_ext.lon)
-        #  print("Distance", actual_dist, "meters")
 
     return closest_node
