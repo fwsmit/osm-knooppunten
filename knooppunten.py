@@ -17,8 +17,11 @@ def main():
         #  print(n.__geo_interface__)
 
     great_matches = []
+    great_matches_osm = []
     good_matches = []
+    good_matches_osm = []
     poor_matches = []
+    poor_matches_osm = []
     non_matches = []
 
     for node in nodes_ext:
@@ -30,10 +33,13 @@ def main():
 
         if dist < 1:
             great_matches.append(node)
+            great_matches_osm.append(best_match)
         elif dist < 10:
             good_matches.append(node)
+            good_matches_osm.append(best_match)
         elif dist < 100:
             poor_matches.append(node)
+            poor_matches_osm.append(best_match)
             #  print("Poor match. Distance:", dist)
         else:
             non_matches.append(node)
@@ -49,7 +55,9 @@ def main():
 
     export_geojson(non_matches, "non_matches.geojson")
     export_geojson(poor_matches, "poor_matches.geojson")
+    export_geojson(poor_matches_osm, "poor_matches_osm.geojson")
     export_geojson(good_matches, "good_matches.geojson")
+    export_geojson(good_matches_osm, "good_matches_osm.geojson")
 
 if __name__ == "__main__":
     main()
