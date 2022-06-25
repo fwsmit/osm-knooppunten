@@ -1,7 +1,7 @@
 import geojson
 from node import Node
 
-def import_geojson(filename, rwn_name = None, rcn_name = None):
+def import_geojson(filename, rwn_name = None, rcn_name = None, filter_regio = None):
     with open(filename, 'r') as file:
         data = geojson.load(file)
         print("Geojson data imported")
@@ -12,6 +12,9 @@ def import_geojson(filename, rwn_name = None, rcn_name = None):
 
     for node_data in data['features']:
         rwn_ref_id = -1
+        if filter_regio and node_data['properties']["regio"] != filter_regio:
+            continue
+
         if rwn_name:
             rwn_ref_id = node_data['properties'][rwn_name]
 
