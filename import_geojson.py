@@ -1,4 +1,5 @@
 import geojson
+import os
 from node import Node
 
 def import_geojson(filename, rwn_name = None, rcn_name = None, filter_regio = None):
@@ -43,5 +44,13 @@ def export_geojson(nodes, filename):
 
     dump = geojson.dumps(features)
 
-    with open(filename, 'w') as f:
+    resultsdir = "results"
+    try:
+        os.mkdir(resultsdir)
+    except FileExistsError:
+        pass # The directory already exists, move on
+
+    filepath = os.path.join(resultsdir, filename)
+
+    with open(filepath, 'w') as f:
         f.write(dump)
