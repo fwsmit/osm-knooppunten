@@ -38,9 +38,9 @@ def main():
     print("Nodes analyzed (external):", len(nodes_ext))
     print("Nodes analyzed (OSM):", len(nodes_ext))
     print("Great matches (<1m):", len(great_matches))
-    print("Good matches: (1-10m)", len(good_matches))
-    print("Poor matches: (10-100m)", len(poor_matches))
-    print("Non matches: (>100m))", len(non_matches))
+    print("Good matches: (1-10m):", len(good_matches))
+    print("Poor matches: (10-100m):", len(poor_matches))
+    print("Non matches: (>100m)):", len(non_matches))
 
     export_geojson(great_matches, "great_matches.geojson")
     export_geojson(great_matches_osm, "great_matches_osm.geojson")
