@@ -30,3 +30,14 @@ def import_geojson(filename, rwn_name = None, rcn_name = None):
         nodes.append(Node(lon=coord_lon, lat=coord_lat, rwn_ref=rwn_ref_id, rcn_ref=rcn_ref_id))
 
     return nodes
+
+def export_geojson(nodes, filename):
+    points = []
+    for node in nodes:
+        point = geojson.Point((node.lat, node.lon))
+        points.append(point)
+
+    dump = geojson.dumps(points)
+
+    with open(filename, 'w') as f:
+        f.write(dump)

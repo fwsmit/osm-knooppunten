@@ -1,5 +1,5 @@
 from import_osm import import_osm
-from import_geojson import import_geojson
+from import_geojson import import_geojson, export_geojson
 from compare import find_matching_point, dist_complicated
 import math
 
@@ -19,7 +19,7 @@ def main():
     great_matches = 0
     good_matches = 0
     poor_matches = 0
-    non_matches = 0
+    non_matches = []
 
     for node in nodes_ext:
         best_match = find_matching_point(node, nodes_osm)
@@ -36,7 +36,7 @@ def main():
             poor_matches += 1
             #  print("Poor match. Distance:", dist)
         else:
-            non_matches += 1
+            non_matches.append(node)
             #  print("Non match. Distance:", dist)
 
     print("Statistics:")
@@ -45,7 +45,9 @@ def main():
     print("Great matches (<1m):", great_matches)
     print("Good matches: (1-10m)", good_matches)
     print("Poor matches: (10-100m)", poor_matches)
-    print("Non matches: (>100m))", non_matches)
+    print("Non matches: (>100m))", len(non_matches))
+
+    export_geojson(non_matches, "non_matches.geojson")
 
 if __name__ == "__main__":
     main()
