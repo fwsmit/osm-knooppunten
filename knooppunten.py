@@ -5,16 +5,7 @@ import math
 
 def main():
     nodes_osm = import_osm("data/groningen.osm")
-    #  nodes_ext = import_geojson("data/groningen.geojson")
     nodes_ext = import_geojson("data/Wandelknooppunten (wgs84).geojson", rwn_name="knooppuntnummer", filter_regio="Groningen")
-
-    #  print("OSM nodes")
-    #  for n in nodes_osm:
-        #  print(n.__geo_interface__)
-
-    #  print("Geojson nodes")
-    #  for n in nodes_ext:
-        #  print(n.__geo_interface__)
 
     great_matches = []
     great_matches_osm = []
@@ -40,10 +31,8 @@ def main():
         elif dist < 100:
             poor_matches.append(node)
             poor_matches_osm.append(best_match)
-            #  print("Poor match. Distance:", dist)
         else:
             non_matches.append(node)
-            #  print("Non match. Distance:", dist)
 
     print("Statistics:")
     print("Nodes analyzed (external):", len(nodes_ext))
@@ -61,5 +50,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
