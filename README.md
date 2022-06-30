@@ -11,7 +11,14 @@ Run with
 
 # Results format
 
-Results are exported to geojson format. The points are tagged with their node number. The number -1 means the node doesn't have a number of this type.
+Results are exported to geojson format. Every geojson file contains a bunch of
+points along with metadata about those points. Every point has the following
+metadata:
+
+- `rwn_ref`: Wandelknooppuntnummer
+- `rcn_ref`: Fietsknooppuntnummer
+- `distance closest node`: The distance in meters of the closest matching point in the other dataset.
+
 
 After running the script the following files can be found in the results folder:
 
