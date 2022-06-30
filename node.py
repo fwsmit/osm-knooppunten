@@ -4,6 +4,7 @@ class Node():
         self.lon = float(lon)
         self.rwn_ref = rwn_ref
         self.rcn_ref = rcn_ref
+        self.matching_nodes = []
 
     @property
     def __geo_interface__(self):
