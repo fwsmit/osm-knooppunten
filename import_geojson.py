@@ -44,7 +44,6 @@ def export_geojson(nodes, filename):
         closest_distance = math.inf
         for matched_node in node.matching_nodes + node.bad_matching_nodes:
             closest_distance = min(dist_complicated(matched_node.lat, matched_node.lon, node.lat, node.lon), closest_distance)
-            print(closest_distance)
 
         if closest_distance == math.inf:
             closest_distance = -1
