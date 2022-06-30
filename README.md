@@ -30,6 +30,8 @@ After running the script the following files can be found in the results folder:
 
 `great_matches.geojson`: De knooppunten van de routedatabank die binnen 1 meter liggen van een passend OSM knooppunt.
 
+`invalid_nodes_ext.geojson`: De knooppunten van de routedatabank die geen valide knooppuntnummer hebben.
+
 
 `poor_matches_osm.geojson`: De bijpassende knooppunten die het dichts bij de punten van `poor_matches.geojson` liggen. Elk routedatabank punt heeft 1 bijpassend OSM knooppunt.
 
