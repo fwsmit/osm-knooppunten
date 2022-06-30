@@ -91,6 +91,7 @@ def main():
     export_geojson(poor_matches_osm, "poor_matches_osm.geojson")
     export_geojson(good_matches, "good_matches.geojson")
     export_geojson(good_matches_osm, "good_matches_osm.geojson")
+    export_geojson(osm_match_0, "osm_match_0.geojson")
     export_geojson(osm_match_2, "osm_match_2.geojson")
     export_geojson(osm_match_gt_2, "osm_match_gt_2.geojson")
 

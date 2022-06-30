@@ -30,6 +30,8 @@ After running the script the following files can be found in the results folder:
 
 `great_matches_osm.geojson`: De bijpassende knooppunten die het dichts bij de punten van `great_matches.geojson` liggen. Elk routedatabank punt heeft 1 bijpassend OSM knooppunt.
 
+`osm_match_0.geojson`: OSM nodes die niet aan routedatabank nodes zijn gematcht.
+
 `osm_match_2.geojson`: OSM nodes die aan 2 routedatabank nodes zijn gematcht.
 
 `osm_match_gt_2.geojson`: OSM nodes die aan meer dan 2 routedatabank nodes zijn gematcht.
