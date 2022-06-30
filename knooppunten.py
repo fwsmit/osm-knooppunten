@@ -5,7 +5,7 @@ import math
 
 def main():
     nodes_osm = import_osm("data/groningen.osm")
-    nodes_ext = import_geojson("data/Wandelknooppunten (wgs84).geojson", rwn_name="knooppuntnummer", filter_regio="Groningen")
+    nodes_ext, nodes_ext_invalid = import_geojson("data/Wandelknooppunten (wgs84).geojson", rwn_name="knooppuntnummer", filter_regio="Groningen")
 
     great_matches = []
     great_matches_osm = []
@@ -80,6 +80,7 @@ def main():
     print("Dataset routedatabank:")
     print("Nodes with 0 matches: ", len(ext_match_0))
     print("Nodes with 1 matches: ", len(ext_match_1))
+    print("Invalid nodes: ", len(nodes_ext_invalid))
     print("")
     print("Dataset OSM:")
     print("Nodes with 0 matches: ", len(osm_match_0))
@@ -97,6 +98,7 @@ def main():
     export_geojson(osm_match_0, "osm_match_0.geojson")
     export_geojson(osm_match_2, "osm_match_2.geojson")
     export_geojson(osm_match_gt_2, "osm_match_gt_2.geojson")
+    export_geojson(nodes_ext_invalid, "invalid_nodes_ext.geojson")
 
 if __name__ == "__main__":
     main()
