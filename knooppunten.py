@@ -21,11 +21,10 @@ def main():
             dist = dist_complicated(best_match.lat, best_match.lon, node.lat, node.lon)
             if dist < 100:
                 best_match.matching_nodes.append(node)
-                node.matching_nodes.append(node)
+                node.matching_nodes.append(best_match)
             else:
                 best_match.bad_matching_nodes.append(node)
-                node.bad_matching_nodes.append(node)
-
+                node.bad_matching_nodes.append(best_match)
         else:
             dist = math.inf
 
