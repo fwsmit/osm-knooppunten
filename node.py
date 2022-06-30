@@ -5,6 +5,7 @@ class Node():
         self.rwn_ref = rwn_ref
         self.rcn_ref = rcn_ref
         self.matching_nodes = []
+        self.bad_matching_nodes = [] # matching nodes with a distance >100m
 
     @property
     def __geo_interface__(self):

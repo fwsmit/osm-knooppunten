@@ -22,6 +22,10 @@ def main():
             if dist < 100:
                 best_match.matching_nodes.append(node)
                 node.matching_nodes.append(node)
+            else:
+                best_match.bad_matching_nodes.append(node)
+                node.bad_matching_nodes.append(node)
+
         else:
             dist = math.inf
 
