@@ -9,7 +9,7 @@ def dist_complicated(lat1, lon1, lat2, lon2):
     c = 2 * math.asin(math.sqrt(a))
     # Radius of earth in kilometers is 6371
     km = 6371* c
-    return km
+    return 1000 * km
 
 def dist_simple_sq(lat1, lon1, lat2, lon2):
     dlon = lon2 - lon1
