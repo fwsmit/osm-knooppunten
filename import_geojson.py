@@ -1,6 +1,8 @@
 import geojson
 import os
+import math
 from node import Node
+from compare import dist_complicated
 
 def import_geojson(filename, rwn_name = None, rcn_name = None, filter_regio = None):
     with open(filename, 'r') as file:
@@ -39,7 +41,15 @@ def export_geojson(nodes, filename):
     features = []
     for node in nodes:
         point = geojson.Point((node.lon, node.lat))
-        feature = geojson.Feature(geometry=point, properties={"rwn knooppuntnummer": node.rwn_ref, "rcn knooppuntnummer": node.rcn_ref})
+        closest_distance = math.inf
+        for matched_node in node.matching_nodes + node.bad_matching_nodes:
+            closest_distance = min(dist_complicated(matched_node.lat, matched_node.lon, node.lat, node.lon), closest_distance)
+            print(closest_distance)
+
+        if closest_distance == math.inf:
+            closest_distance = -1
+
+        feature = geojson.Feature(geometry=point, properties={"rwn knooppuntnummer": node.rwn_ref, "rcn knooppuntnummer": node.rcn_ref, "distance closest node": closest_distance})
         features.append(feature)
 
     dump = geojson.dumps(features)
