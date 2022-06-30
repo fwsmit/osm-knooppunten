@@ -49,7 +49,7 @@ def export_geojson(nodes, filename):
         if closest_distance == math.inf:
             closest_distance = -1
 
-        feature = geojson.Feature(geometry=point, properties={"rwn knooppuntnummer": node.rwn_ref, "rcn knooppuntnummer": node.rcn_ref, "distance closest node": closest_distance})
+        feature = geojson.Feature(geometry=point, properties={"rwn_ref": node.rwn_ref, "rcn_ref": node.rcn_ref, "distance closest node": closest_distance})
         features.append(feature)
 
     dump = geojson.dumps(features)
