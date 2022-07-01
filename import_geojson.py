@@ -3,7 +3,7 @@ import os
 import math
 from node import Node
 from compare import dist_complicated
-from helper import is_number_valid
+from osm_knooppunten import helper
 
 def import_geojson(filename, rwn_name = None, rcn_name = None, filter_regio = None):
     with open(filename, 'r') as file:
@@ -36,7 +36,7 @@ def import_geojson(filename, rwn_name = None, rcn_name = None, filter_regio = No
             coord_lat = None
 
         node = Node(lon=coord_lon, lat=coord_lat, rwn_ref=rwn_ref_id, rcn_ref=rcn_ref_id)
-        if not is_number_valid(node.rwn_ref) and not is_number_valid(node.rcn_ref):
+        if not helper.is_number_valid(node.rwn_ref) and not helper.is_number_valid(node.rcn_ref):
             invalid_nodes.append(node)
         else:
             nodes.append(node)
