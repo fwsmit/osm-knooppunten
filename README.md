@@ -51,18 +51,22 @@ These files can all be opened in JOSM.
 
 # Data sources
 
-OSM data: https://knooppuntnet.nl/nl/analysis/hiking
-Routedatabank
+- OpenStreetMap
+- Routedatabank
 
 # Converting data
 
 ## OSM data
 
-The OSM data can be imported in JOSM and exported to the .osm (XML) data format.
+Below are the instructions to download the OSM data. This might be automated in
+the future with an overpass query.
 
-## WFS data
+- Go to https://knooppuntnet.nl/nl/analysis/hiking
+- Select "Explore by network" on the left.
+- Navigate to the network you want to analyze
+- Open JOSM with remote control enabled
+- Click the edit button. The dataset will open in JOSM
+- Click "file > save as" and save as .osm file
 
-Take a look at: https://docs.qgis.org/2.18/en/docs/training_manual/online_resources/wfs.html
-for importing WFS data.
+You now have succesfully created a dataset that can be used by this program.
 
-To get the data in the right format, export them to GEOJSON in QGIS.
