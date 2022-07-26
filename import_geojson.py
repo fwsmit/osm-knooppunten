@@ -1,14 +1,19 @@
 import geojson
 import os
 import math
+import sys
 from node import Node
 from compare import dist_complicated
 from osm_knooppunten import helper
 
 def import_geojson(filename, rwn_name = None, rcn_name = None, filter_regio = None):
-    with open(filename, 'r') as file:
-        data = geojson.load(file)
-        print("Geojson data imported")
+    try:
+        with open(filename, 'r') as file:
+            data = geojson.load(file)
+            print("Geojson data imported")
+    except IOError as er:
+        print(er)
+        sys.exit(1)
 
     nodes = []
     invalid_nodes = []
@@ -67,5 +72,9 @@ def export_geojson(nodes, filename):
 
     filepath = os.path.join(resultsdir, filename)
 
-    with open(filepath, 'w') as f:
-        f.write(dump)
+    try:
+        with open(filepath, 'w') as f:
+            f.write(dump)
+    except IOError as er:
+        print(er)
+        sys.exit(1)

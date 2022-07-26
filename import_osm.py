@@ -28,7 +28,7 @@ class OSMContentHandler(xml.sax.ContentHandler):
         if name == "node":
             self.nodes.append(Node(lat=self.lat, lon=self.lon, rwn_ref=self.rwn_ref, rcn_ref=self.rcn_ref))
 
-def import_osm(filename):
+def import_osm(filename_or_stream):
     nodes = []
-    xml.sax.parse(filename, OSMContentHandler(nodes))
+    xml.sax.parse(filename_or_stream, OSMContentHandler(nodes))
     return nodes

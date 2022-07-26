@@ -5,9 +5,13 @@ This programs compares OSM walking route data to that of other data sets.
 
 This program depends on python-geojson for importing geojson data.
 
-Run with
+Run with:
 
-        python knooppunten.py
+        knooppunten.py [-h] --osmfile OSMFILE --importfile IMPORTFILE [--region REGION]
+
+Example:
+
+        python knooppunten.py --osmfile data/groningen.osm --importfile data/Wandelknooppunten\ \(wgs84\).geojson --region "Groningen"
 
 # Results format
 

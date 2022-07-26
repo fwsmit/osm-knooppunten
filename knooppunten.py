@@ -1,11 +1,27 @@
+import argparse as arg
+import sys
 from import_osm import import_osm
 from import_geojson import import_geojson, export_geojson
 from compare import find_matching_point, dist_complicated
 import math
 
 def main():
-    nodes_osm = import_osm("data/groningen.osm")
-    nodes_ext, nodes_ext_invalid = import_geojson("data/Wandelknooppunten (wgs84).geojson", rwn_name="knooppuntnummer", filter_regio="Groningen")
+    parser = arg.ArgumentParser()
+    parser.add_argument("--osmfile", type=open, required=True, help="File with OSM data")
+    parser.add_argument("--importfile", type=str, required=True, help="File with import data")
+    parser.add_argument("--region", type=str, help="Compare the OSM data only to the import data from this region")
+    #  parser.add_argument("--importfile")
+    #  parser.add_argument("--region")
+    try:
+        args = parser.parse_args()
+    except IOError as er:
+        print(er)
+        sys.exit(1)
+
+    #  nodes_osm = import_osm("data/groningen.osm")
+    #  nodes_ext, nodes_ext_invalid = import_geojson("data/Wandelknooppunten (wgs84).geojson", rwn_name="knooppuntnummer", filter_regio="Groningen")
+    nodes_osm = import_osm(args.osmfile)
+    nodes_ext, nodes_ext_invalid = import_geojson(args.importfile, rwn_name="knooppuntnummer", filter_regio=args.region)
 
     great_matches = []
     great_matches_osm = []
