@@ -54,7 +54,7 @@ These files can all be opened in JOSM.
 - OpenStreetMap
 - Routedatabank
 
-# Converting data
+# Getting the data
 
 ## OSM data
 
@@ -70,3 +70,8 @@ the future with an overpass query.
 
 You now have succesfully created a dataset that can be used by this program.
 
+## Routedatabank
+
+This data is not downloadable without account, but you can make use of the data
+in this repository (only for OSM purposes).
+Contact Friso Smit (fw.smit01@gmail.com) if you need a more up-to-date version of the dataset.
