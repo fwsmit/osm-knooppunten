@@ -87,7 +87,7 @@ def main():
 
     print("Statistics:")
     print("Nodes analyzed (external):", len(nodes_ext))
-    print("Nodes analyzed (OSM):", len(nodes_ext))
+    print("Nodes analyzed (OSM):", len(nodes_osm))
     print("Great matches (<1m):", len(great_matches))
     print("Good matches: (1-10m):", len(good_matches))
     print("Poor matches: (10-100m):", len(poor_matches))
