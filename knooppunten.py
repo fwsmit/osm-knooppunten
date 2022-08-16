@@ -2,7 +2,7 @@ import argparse as arg
 import sys
 from import_osm import import_osm
 from import_geojson import import_geojson, export_geojson
-from compare import find_matching_point, dist_complicated
+from compare import find_matching_point, dist_complicated, find_closest_node
 import math
 
 def main():
@@ -82,6 +82,21 @@ def main():
         else:
             osm_match_gt_2.append(node)
 
+    new_nodes_ext = []
+    renamed_nodes_ext = []
+    unsure_nodes_ext = []
+    # Try to find new nodes
+    for node in ext_match_0:
+        closest_node = find_closest_node(node, nodes_osm)
+        dist = dist_complicated(closest_node.lat, closest_node.lon, node.lat, node.lon)
+        if dist > 100:
+            # Not near any node, so it must be new
+            new_nodes_ext.append(node)
+        elif dist < 10:
+            renamed_nodes_ext.append(node)
+        else:
+            unsure_nodes_ext.append(node)
+
     print("Statistics:")
     print("Nodes analyzed (external):", len(nodes_ext))
     print("Nodes analyzed (OSM):", len(nodes_osm))
@@ -100,6 +115,10 @@ def main():
     print("Nodes with 1 matches: ", len(osm_match_1))
     print("Nodes with 2 matches: ", len(osm_match_2))
     print("Nodes with >2 matches: ", len(osm_match_gt_2))
+    print("Analysis concludes:")
+    print("New nodes: ", len(new_nodes_ext))
+    print("Renamed nodes: ", len(renamed_nodes_ext))
+    print("Unsure nodes: ", len(unsure_nodes_ext))
 
     export_geojson(great_matches, "great_matches.geojson")
     export_geojson(great_matches_osm, "great_matches_osm.geojson")
@@ -112,6 +131,9 @@ def main():
     export_geojson(osm_match_2, "osm_match_2.geojson")
     export_geojson(osm_match_gt_2, "osm_match_gt_2.geojson")
     export_geojson(nodes_ext_invalid, "invalid_nodes_ext.geojson")
+    export_geojson(new_nodes_ext, "new_nodes_ext.geojson")
+    export_geojson(renamed_nodes_ext, "renamed_nodes_ext.geojson")
+    export_geojson(unsure_nodes_ext, "unsure_nodes_ext.geojson")
 
 if __name__ == "__main__":
     main()

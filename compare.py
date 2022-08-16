@@ -31,3 +31,16 @@ def find_matching_point(node_ext, nodes_osm):
         actual_dist = dist_complicated(closest_node.lat, closest_node.lon, node_ext.lat, node_ext.lon)
 
     return closest_node
+
+# Returns the closest node from the given node
+def find_closest_node(node, comparison_nodes):
+    closest_node = None
+    best_dist_sq = math.inf
+    for n in comparison_nodes:
+        dist_sq = dist_simple_sq(node.lat, node.lon, n.lat, n.lon)
+        if dist_sq < best_dist_sq:
+            best_dist_sq = dist_sq
+            closest_node = n
+
+    return closest_node
+
