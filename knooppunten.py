@@ -1,9 +1,10 @@
 import argparse as arg
 import sys
+import math
 from import_osm import import_osm
 from import_geojson import import_geojson, export_geojson
 from compare import find_matching_point, dist_complicated, find_closest_node
-import math
+from analyze import ChangeType, get_node_change_type_ext
 
 def main():
     parser = arg.ArgumentParser()
@@ -83,6 +84,14 @@ def main():
             renamed_nodes_ext.append(node)
         else:
             unsure_nodes_ext.append(node)
+    
+    node_changes_dict = dict()
+    for key in ChangeType:
+        node_changes_dict[key] = []
+
+    for node in nodes_ext:
+        change_type = get_node_change_type_ext(node, nodes_osm, nodes_ext)
+        node_changes_dict[change_type].append(node)
 
     print("#### Analysis results ####")
     print()
@@ -90,9 +99,8 @@ def main():
     print("Invalid nodes (external): ", len(nodes_ext_invalid))
     print()
     print("## Node changes ##")
-    print("New nodes: ", len(new_nodes_ext))
-    print("Renamed nodes: ", len(renamed_nodes_ext))
-    print("Unsure nodes: ", len(unsure_nodes_ext))
+    for key in node_changes_dict:
+        print("{}: {}".format(key, len(node_changes_dict[key])))
 
     export_geojson(nodes_ext_invalid, "invalid_nodes_ext.geojson")
     export_geojson(new_nodes_ext, "new_nodes_ext.geojson")
