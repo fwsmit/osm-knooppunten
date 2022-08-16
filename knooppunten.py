@@ -17,8 +17,18 @@ def main():
         print(er)
         sys.exit(1)
 
+    print("Analyzing differences between datasets")
+
     nodes_osm = import_osm(args.osmfile)
     nodes_ext, nodes_ext_invalid = import_geojson(args.importfile, rwn_name="knooppuntnummer", filter_regio=args.region)
+
+    print("OSM dataset:", args.osmfile.name, "({} nodes)".format(len(nodes_osm)))
+
+    if (args.region):
+        print("External dataset: {}, filtered by region '{}' ({} nodes)".format(args.importfile, args.region, len(nodes_ext)))
+    else:
+        print("External dataset:", args.importfile, "({} nodes)".format(len(nodes_ext)))
+    print()
 
     for node in nodes_ext:
         best_match = find_matching_point(node, nodes_osm)
@@ -74,14 +84,12 @@ def main():
         else:
             unsure_nodes_ext.append(node)
 
-    print("Statistics:")
-    print("Nodes analyzed (external):", len(nodes_ext))
-    print("Nodes analyzed (OSM):", len(nodes_osm))
+    print("#### Analysis results ####")
     print()
-    print("Fault analysis")
+    print("## Fault analysis ##")
     print("Invalid nodes (external): ", len(nodes_ext_invalid))
     print()
-    print("Analysis concludes:")
+    print("## Node changes ##")
     print("New nodes: ", len(new_nodes_ext))
     print("Renamed nodes: ", len(renamed_nodes_ext))
     print("Unsure nodes: ", len(unsure_nodes_ext))

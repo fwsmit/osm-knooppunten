@@ -10,15 +10,12 @@ def import_geojson(filename, rwn_name = None, rcn_name = None, filter_regio = No
     try:
         with open(filename, 'r') as file:
             data = geojson.load(file)
-            print("Geojson data imported")
     except IOError as er:
         print(er)
         sys.exit(1)
 
     nodes = []
     invalid_nodes = []
-
-    print(len(data['features']))
 
     for node_data in data['features']:
         rwn_ref_id = -1
