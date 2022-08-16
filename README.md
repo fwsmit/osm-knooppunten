@@ -14,15 +14,15 @@ Install with:
 
 Open a terminal in this project's directory. The program can be run with the following command:
 
-        python knooppunten.py [-h] --osmfile OSMFILE --importfile IMPORTFILE [--region REGION]
+	python knooppunten.py [-h] --osmfile OSMFILE --importfile IMPORTFILE [--region REGION]
 
 Where you replace the arguments in capital letters with your own arguments. For example:
 
-        python knooppunten.py --osmfile data/groningen.osm --importfile 'data/Wandelknooppunten (wgs84).geojson' --region "Groningen"
+	python knooppunten.py --osmfile data/groningen.osm --importfile 'data/Wandelknooppunten (wgs84).geojson' --region "Groningen"
 
 Or for Windows users:
 
-        python knooppunten.py --osmfile data\groningen.osm --importfile 'data\Wandelknooppunten (wgs84).geojson' --region "Groningen"
+	python knooppunten.py --osmfile data\groningen.osm --importfile 'data\Wandelknooppunten (wgs84).geojson' --region "Groningen"
 
 
 For more detail about the arguments, run:
