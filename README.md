@@ -3,7 +3,8 @@ This programs compares OSM walking route data to that of other data sets.
 
 # Installation
 
-This program depends on python-geojson for importing geojson data.
+Make sure to install python on your system. This program depends on the
+python-geojson package for importing geojson data.
 
 Install with:
 	
@@ -11,17 +12,17 @@ Install with:
 
 # Running
 
-Open a terminal in this projects directory. Then run the command:
+Open a terminal in this project's directory. The program can be run with the following command:
 
         python knooppunten.py [-h] --osmfile OSMFILE --importfile IMPORTFILE [--region REGION]
 
 Where you replace the arguments in capital letters with your own arguments. For example:
 
-        python knooppunten.py --osmfile data/groningen.osm --importfile data/Wandelknooppunten\ \(wgs84\).geojson --region "Groningen"
+        python knooppunten.py --osmfile data/groningen.osm --importfile 'data/Wandelknooppunten (wgs84).geojson' --region "Groningen"
 
 Or for Windows users:
 
-        python knooppunten.py --osmfile data\groningen.osm --importfile data\Wandelknooppunten\ \(wgs84\).geojson --region "Groningen"
+        python knooppunten.py --osmfile data\groningen.osm --importfile 'data\Wandelknooppunten (wgs84).geojson' --region "Groningen"
 
 
 For more detail about the arguments, run:
