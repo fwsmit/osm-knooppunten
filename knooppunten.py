@@ -102,6 +102,7 @@ def main():
     for key in node_changes_dict:
         print("{}: {}".format(key, len(node_changes_dict[key])))
 
+    print("## Exporting changes ##")
     export_geojson(nodes_ext_invalid, "invalid_nodes_ext.geojson")
     for key in ChangeType:
         export_geojson(node_changes_dict[key], "{}.geojson".format(key))

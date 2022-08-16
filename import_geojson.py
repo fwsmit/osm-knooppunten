@@ -46,6 +46,7 @@ def import_geojson(filename, rwn_name = None, rcn_name = None, filter_regio = No
     return nodes, invalid_nodes
 
 def export_geojson(nodes, filename):
+    print("Exporting to", filename)
     features = []
     for node in nodes:
         point = geojson.Point((node.lon, node.lat))
