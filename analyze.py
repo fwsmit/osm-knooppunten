@@ -72,4 +72,7 @@ def get_node_change_type_ext(node_ext, nodes_osm, nodes_ext):
     if closest_match_dist > 100 and closest_match_dist < 1000:
         return ChangeType.MOVED_LONG
 
+    if closest_match_dist < 1:
+        return ChangeType.NO
+
     return ChangeType.OTHER
