@@ -5,12 +5,14 @@ from import_osm import import_osm
 from import_geojson import import_geojson, export_geojson
 from compare import find_matching_point, dist_complicated, find_closest_node
 from analyze import ChangeType, get_node_change_type_ext
+from _version import __version__
 
 def main():
     parser = arg.ArgumentParser()
     parser.add_argument("--osmfile", type=open, required=True, help="File with OSM data")
     parser.add_argument("--importfile", type=str, required=True, help="File with import data")
     parser.add_argument("--region", type=str, help="Compare the OSM data only to the import data from this region")
+    parser.add_argument('--version', action='version', version='%(prog)s {version}'.format(version=__version__))
 
     try:
         args = parser.parse_args()
