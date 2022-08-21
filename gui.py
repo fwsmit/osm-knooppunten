@@ -4,27 +4,31 @@ from PySide6 import QtCore, QtWidgets, QtGui
 from pathlib import Path
 
 class MainWindow(QtWidgets.QWidget):
-    def addFileSlot(self, fileSelectFunc, label):
-        button = QtWidgets.QPushButton(label)
+    def addFileSlot(self, fileSelectFunc, label, layout):
+        label = QtWidgets.QLabel(label)
+        button = QtWidgets.QPushButton("Select")
         text = QtWidgets.QLineEdit()
 
-        hlayout = QtWidgets.QHBoxLayout(self)
+        hlayout = QtWidgets.QHBoxLayout()
+        hlayout.addWidget(label)
         hlayout.addWidget(text)
         hlayout.addWidget(button)
 
-        button.clicked.connect(self.selectOSM)
+        groupbox = QtWidgets.QGroupBox()
+        groupbox.setLayout(hlayout)
 
-        return text, button
+        layout.addWidget(groupbox)
 
+        button.clicked.connect(fileSelectFunc)
+
+        return text
 
     def __init__(self):
         super().__init__()
+        vlayout = QtWidgets.QVBoxLayout(self)
 
-        self.hello = ["Hallo Welt", "Hei maailma", "Hola Mundo", "Привет мир"]
-
-        self.text1, button1 = self.addFileSlot(self.selectOSM, "Select OSM file")
-
-
+        self.text1 = self.addFileSlot(self.selectOSM, "OSM file:", vlayout)
+        self.text2 = self.addFileSlot(self.selectImportFile, "Import file:", vlayout)
 
     @QtCore.Slot()
     def selectOSM(self):
@@ -34,6 +38,15 @@ class MainWindow(QtWidgets.QWidget):
                 selectedFilter="OSM Files (*.osm)")
 
         self.text1.setText(self.osmFile)
+
+    @QtCore.Slot()
+    def selectImportFile(self):
+        self.importFile, selectedFilter = QtWidgets.QFileDialog.getOpenFileName(self,
+                "Select import file",
+                filter="All Files (*);;GeoJSOSN Files (*.json, *.geojson)",
+                selectedFilter="GeoJSOSN Files (*.json, *.geojson)")
+
+        self.text2.setText(self.importFile)
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
