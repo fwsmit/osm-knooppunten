@@ -4,11 +4,14 @@ This programs compares OSM walking route data to that of other data sets.
 # Installation
 
 Make sure to install python on your system. This program depends on the
-python-geojson package for importing geojson data.
+following libraries:
+
+- python geojson for package for importing geojson data
+- pyside6 for the Qt GUI
 
 Install with:
 	
-	pip install geojson
+	pip install geojson pyside6
 
 # Running
 
