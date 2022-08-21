@@ -1,6 +1,7 @@
 import sys
 import random
 from PySide6 import QtCore, QtWidgets, QtGui
+from pathlib import Path
 
 class MainWindow(QtWidgets.QWidget):
     def __init__(self):
@@ -8,7 +9,7 @@ class MainWindow(QtWidgets.QWidget):
 
         self.hello = ["Hallo Welt", "Hei maailma", "Hola Mundo", "Привет мир"]
 
-        self.button = QtWidgets.QPushButton("Click me!")
+        self.button = QtWidgets.QPushButton("Select OSM file")
         self.text = QtWidgets.QLabel("Hello World",
                                      alignment=QtCore.Qt.AlignCenter)
 
@@ -16,11 +17,17 @@ class MainWindow(QtWidgets.QWidget):
         self.layout.addWidget(self.text)
         self.layout.addWidget(self.button)
 
-        self.button.clicked.connect(self.magic)
+        self.button.clicked.connect(self.selectOSM)
+
 
     @QtCore.Slot()
-    def magic(self):
-        self.text.setText(random.choice(self.hello))
+    def selectOSM(self):
+        self.osmFile, selectedFilter = QtWidgets.QFileDialog.getOpenFileName(self,
+                "Select OSM file",
+                filter="All Files (*);;OSM Files (*.osm)",
+                selectedFilter="OSM Files (*.osm)")
+
+        self.text.setText(self.osmFile)
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
