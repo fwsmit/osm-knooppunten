@@ -27,6 +27,8 @@ class MainWindow(QtWidgets.QWidget):
         super().__init__()
         vlayout = QtWidgets.QVBoxLayout(self)
 
+        self.setWindowTitle("OSM Knooppunten import analyzer")
+
         self.text1 = self.addFileSlot(self.selectOSM, "OSM file:", vlayout)
         self.text2 = self.addFileSlot(self.selectImportFile, "Import file:", vlayout)
 
