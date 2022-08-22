@@ -21,6 +21,20 @@ class MainWindow(QtWidgets.QWidget):
 
         button.clicked.connect(fileSelectFunc)
 
+        return text, hlayout
+
+    def addFilterRegionWidgets(self, label, layout):
+        label = QtWidgets.QLabel(label)
+        text = QtWidgets.QLineEdit()
+
+        hlayout = QtWidgets.QHBoxLayout()
+        hlayout.addWidget(label)
+        hlayout.addWidget(text)
+
+        groupbox = QtWidgets.QGroupBox()
+        groupbox.setLayout(hlayout)
+
+        layout.addWidget(groupbox)
         return text
 
     def __init__(self):
@@ -29,8 +43,16 @@ class MainWindow(QtWidgets.QWidget):
 
         self.setWindowTitle("OSM Knooppunten import analyzer")
 
-        self.text1 = self.addFileSlot(self.selectOSM, "OSM file:", vlayout)
-        self.text2 = self.addFileSlot(self.selectImportFile, "Import file:", vlayout)
+
+        self.text1, groupbox1 = self.addFileSlot(self.selectOSM, "OSM file:", vlayout)
+
+        # Add import file and filter region in the same layout
+        vlayout2 = QtWidgets.QVBoxLayout()
+        self.text2, groupbox2 = self.addFileSlot(self.selectImportFile, "Import file:", vlayout2)
+        self.filterRegion = self.addFilterRegionWidgets("Filter region:", vlayout2)
+        groupbox = QtWidgets.QGroupBox()
+        groupbox.setLayout(vlayout2)
+        vlayout.addWidget(groupbox)
 
     @QtCore.Slot()
     def selectOSM(self):
