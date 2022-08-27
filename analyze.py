@@ -88,9 +88,9 @@ def do_analysis(osmfile, importfilename, filter_region):
     print("OSM dataset:", osmfile.name, "({} nodes)".format(len(nodes_osm)))
 
     if (filter_region):
-        print("External dataset: {}, filtered by region '{}' ({} nodes)".format(importfile, filter_region, len(nodes_ext)))
+        print("External dataset: {}, filtered by region '{}' ({} nodes)".format(importfilename, filter_region, len(nodes_ext)))
     else:
-        print("External dataset:", importfile, "({} nodes)".format(len(nodes_ext)))
+        print("External dataset:", importfilename, "({} nodes)".format(len(nodes_ext)))
     print()
 
     for node in nodes_ext:
