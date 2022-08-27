@@ -1,5 +1,9 @@
 from enum import Enum
 from compare import find_closest_node, dist_complicated
+from import_osm import import_osm
+from import_geojson import import_geojson, export_geojson
+from compare import find_matching_point, dist_complicated, find_closest_node
+from _version import __version__
 
 class ChangeType(Enum):
     # No significant change
@@ -76,3 +80,91 @@ def get_node_change_type_ext(node_ext, nodes_osm, nodes_ext):
         return ChangeType.NO
 
     return ChangeType.OTHER
+
+def do_analysis(osmfile, importfile, filter_region):
+    nodes_osm = import_osm(osmfile)
+    nodes_ext, nodes_ext_invalid = import_geojson(importfile, rwn_name="knooppuntnummer", filter_regio=filter_region)
+
+    print("OSM dataset:", osmfile.name, "({} nodes)".format(len(nodes_osm)))
+
+    if (filter_region):
+        print("External dataset: {}, filtered by region '{}' ({} nodes)".format(importfile, filter_region, len(nodes_ext)))
+    else:
+        print("External dataset:", importfile, "({} nodes)".format(len(nodes_ext)))
+    print()
+
+    for node in nodes_ext:
+        best_match = find_matching_point(node, nodes_osm)
+        if best_match:
+            dist = dist_complicated(best_match.lat, best_match.lon, node.lat, node.lon)
+            if dist < 100:
+                best_match.matching_nodes.append(node)
+                node.matching_nodes.append(best_match)
+            else:
+                best_match.bad_matching_nodes.append(node)
+                node.bad_matching_nodes.append(best_match)
+
+    ext_match_0 = []
+    ext_match_1 = []
+    for node in nodes_ext:
+        n_matches = len(node.matching_nodes)
+
+        if n_matches == 0:
+            ext_match_0.append(node)
+        elif n_matches == 1:
+            ext_match_1.append(node)
+        else:
+            print("Error: external node is matched with multiple OSM nodes")
+
+    osm_match_0 = []
+    osm_match_1 = []
+    osm_match_2 = []
+    osm_match_gt_2 = []
+    for node in nodes_osm:
+        n_matches = len(node.matching_nodes)
+
+        if n_matches == 0:
+            osm_match_0.append(node)
+        elif n_matches == 1:
+            osm_match_1.append(node)
+        elif n_matches == 2:
+            osm_match_2.append(node)
+        else:
+            osm_match_gt_2.append(node)
+
+    new_nodes_ext = []
+    renamed_nodes_ext = []
+    unsure_nodes_ext = []
+    # Try to find new nodes
+    for node in ext_match_0:
+        closest_node = find_closest_node(node, nodes_osm)
+        dist = dist_complicated(closest_node.lat, closest_node.lon, node.lat, node.lon)
+        if dist > 100:
+            # Not near any node, so it must be new
+            new_nodes_ext.append(node)
+        elif dist < 10:
+            renamed_nodes_ext.append(node)
+        else:
+            unsure_nodes_ext.append(node)
+    
+    node_changes_dict = dict()
+    for key in ChangeType:
+        node_changes_dict[key] = []
+
+    for node in nodes_ext:
+        change_type = get_node_change_type_ext(node, nodes_osm, nodes_ext)
+        node_changes_dict[change_type].append(node)
+
+    print("#### Analysis results ####")
+    print()
+    print("## Fault analysis ##")
+    print("Invalid nodes (external): ", len(nodes_ext_invalid))
+    print()
+    print("## Node changes ##")
+    for key in node_changes_dict:
+        print("{}: {}".format(key, len(node_changes_dict[key])))
+
+    print("## Exporting changes ##")
+    export_geojson(nodes_ext_invalid, "invalid_nodes_ext.geojson")
+    for key in ChangeType:
+        export_geojson(node_changes_dict[key], "{}_ext.geojson".format(key))
