@@ -1,7 +1,6 @@
 import sys
 import random
-from PySide6 import QtCore, QtWidgets, QtGui
-from pathlib import Path
+from PySide6 import QtCore, QtWidgets
 
 class MainWindow(QtWidgets.QWidget):
     def addFileSlot(self, fileSelectFunc, label, layout):
@@ -74,12 +73,3 @@ class MainWindow(QtWidgets.QWidget):
                 selectedFilter="GeoJSOSN Files (*.json, *.geojson)")
 
         self.text2.setText(self.importFile)
-
-if __name__ == "__main__":
-    app = QtWidgets.QApplication([])
-
-    widget = MainWindow()
-    widget.resize(800, 600)
-    widget.show()
-
-    sys.exit(app.exec())
