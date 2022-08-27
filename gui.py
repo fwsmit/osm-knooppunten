@@ -1,6 +1,5 @@
-import sys
-import random
 from PySide6 import QtCore, QtWidgets
+from analyze import do_analysis
 
 class MainWindow(QtWidgets.QWidget):
     def addFileSlot(self, fileSelectFunc, label, layout):
@@ -38,6 +37,8 @@ class MainWindow(QtWidgets.QWidget):
 
     def __init__(self):
         super().__init__()
+        self.osmFile = None
+        self.importFile = None
         vlayout = QtWidgets.QVBoxLayout(self)
 
         self.setWindowTitle("OSM Knooppunten import analyzer")
@@ -55,6 +56,7 @@ class MainWindow(QtWidgets.QWidget):
 
         startButton = QtWidgets.QPushButton("Run")
         vlayout.addWidget(startButton)
+        startButton.clicked.connect(self.startAnalysis)
 
     @QtCore.Slot()
     def selectOSM(self):
@@ -73,3 +75,20 @@ class MainWindow(QtWidgets.QWidget):
                 selectedFilter="GeoJSOSN Files (*.json, *.geojson)")
 
         self.text2.setText(self.importFile)
+
+    @QtCore.Slot()
+    def startAnalysis(self):
+        print(self.osmFile)
+        print(self.importFile)
+        filterRegion = self.filterRegion.text()
+        if len(filterRegion) == 0:
+            filterRegion = None
+
+        if self.osmFile is None:
+            return -1
+
+        if self.importFile is None:
+            return -1
+
+        with open(str(self.osmFile), 'r') as osmFile:
+            do_analysis(osmFile, self.importFile, filterRegion)
