@@ -54,6 +54,9 @@ class MainWindow(QtWidgets.QWidget):
         groupbox.setLayout(vlayout2)
         vlayout.addWidget(groupbox)
 
+        startButton = QtWidgets.QPushButton("Run")
+        vlayout.addWidget(startButton)
+
     @QtCore.Slot()
     def selectOSM(self):
         self.osmFile, selectedFilter = QtWidgets.QFileDialog.getOpenFileName(self,
