@@ -36,8 +36,8 @@ class Worker(QRunnable):
         self.fn(*self.args, **self.kwargs)
 
 class RunWindow(QtWidgets.QWidget):
-    def __init__(self, prnt, osmFileName, importFile, filterRegion):
-        super().__init__(parent=None)
+    def __init__(self, osmFileName, importFile, filterRegion):
+        super().__init__()
         print("started run window")
         self.osmFileName = osmFileName
         self.importFile = importFile
@@ -141,7 +141,7 @@ class MainWindow(QtWidgets.QWidget):
         if self.importFile is None:
             return -1
 
-        self.runWindow = RunWindow(self, self.osmFile, self.importFile, self.filterRegion)
+        self.runWindow = RunWindow(self.osmFile, self.importFile, self.filterRegion)
         self.runWindow.resize(600, 400)
         self.runWindow.show()
 
