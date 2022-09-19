@@ -82,8 +82,10 @@ def get_node_change_type_ext(node_ext, nodes_osm, nodes_ext):
     return ChangeType.OTHER
 
 def do_analysis(osmfile, importfilename, filter_region, progress):
+    progress.emit("Importing data")
     nodes_osm = import_osm(osmfile)
     nodes_ext, nodes_ext_invalid = import_geojson(importfilename, rwn_name="knooppuntnummer", filter_regio=filter_region)
+    progress.emit("Finished importing data")
 
     print("OSM dataset:", osmfile.name, "({} nodes)".format(len(nodes_osm)))
 
@@ -151,9 +153,17 @@ def do_analysis(osmfile, importfilename, filter_region, progress):
     for key in ChangeType:
         node_changes_dict[key] = []
 
+    i = 0;
+    pr = 0;
     for node in nodes_ext:
+        # print("Node", i)
         change_type = get_node_change_type_ext(node, nodes_osm, nodes_ext)
         node_changes_dict[change_type].append(node)
+        i += 1
+        pr = i/len(nodes_ext)
+        # print("Progress", progress)
+        progress.emit("Analyzing nodes {}/{}".format(i, len(nodes_ext)))
+
 
     print("#### Analysis results ####")
     print()
@@ -164,7 +174,9 @@ def do_analysis(osmfile, importfilename, filter_region, progress):
     for key in node_changes_dict:
         print("{}: {}".format(key, len(node_changes_dict[key])))
 
+    progress.emit("Exporting results")
     print("## Exporting changes ##")
     export_geojson(nodes_ext_invalid, "invalid_nodes_ext.geojson")
     for key in ChangeType:
         export_geojson(node_changes_dict[key], "{}_ext.geojson".format(key))
+    progress.emit("Done")

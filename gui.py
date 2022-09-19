@@ -81,15 +81,21 @@ class RunWindow(QtWidgets.QWidget):
         self.filterRegion = filterRegion
         self.setWindowTitle("Running analysis...")
         vlayout = QtWidgets.QVBoxLayout(self)
-        label = QtWidgets.QLabel(osmFileName)
-        vlayout.addWidget(label)
+        self.progressLabel = QtWidgets.QLabel("")
+        self.progressLabel.setAlignment(QtCore.Qt.AlignCenter)
+        vlayout.addWidget(self.progressLabel)
 
         self.threadpool = QtCore.QThreadPool()
 
         worker = Worker(gui_do_analysis, osmFileName, importFile, filterRegion)
         worker.signals.finished.connect(self.thread_complete)
+        worker.signals.progress.connect(self.thread_progress)
         self.threadpool.start(worker)
 
+    def thread_progress(self, progress):
+        print(progress)
+        self.progressLabel.setText(progress)
+    
     def thread_complete(self):
         print("Thread complete")
         self.setWindowTitle("Done with analysis")
