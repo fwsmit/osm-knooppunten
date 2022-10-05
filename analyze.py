@@ -177,6 +177,10 @@ def do_analysis(osmfile, importfilename, filter_region, progress):
     progress.emit("Exporting results")
     print("## Exporting changes ##")
     export_geojson(nodes_ext_invalid, "invalid_nodes_ext.geojson")
+
+    exported_files = []
     for key in ChangeType:
-        export_geojson(node_changes_dict[key], "{}_ext.geojson".format(key))
+        export_file = export_geojson(node_changes_dict[key], "{}_ext.geojson".format(key))
+        exported_files.append(export_file)
     progress.emit("Done")
+    return exported_files

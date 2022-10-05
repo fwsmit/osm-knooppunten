@@ -5,7 +5,7 @@ from analyze import do_analysis
 
 def gui_do_analysis(osmFileName, importFile, filterRegion, progress):
         with open(str(osmFileName), 'r') as osmFile:
-            do_analysis(osmFile, importFile, filterRegion, progress=progress)
+            return do_analysis(osmFile, importFile, filterRegion, progress=progress)
 
 
 class WorkerSignals(QObject):
@@ -88,9 +88,13 @@ class RunWindow(QtWidgets.QWidget):
         self.threadpool = QtCore.QThreadPool()
 
         worker = Worker(gui_do_analysis, osmFileName, importFile, filterRegion)
+        worker.signals.result.connect(self.thread_results)
         worker.signals.finished.connect(self.thread_complete)
         worker.signals.progress.connect(self.thread_progress)
         self.threadpool.start(worker)
+
+    def thread_results(self, results):
+        self.results = results
 
     def thread_progress(self, progress):
         print(progress)

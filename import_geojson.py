@@ -5,6 +5,7 @@ import sys
 from node import Node
 from compare import dist_complicated
 from osm_knooppunten import helper
+from export import ExportFile
 
 def import_geojson(filename, rwn_name = None, rcn_name = None, filter_regio = None):
     try:
@@ -73,6 +74,7 @@ def export_geojson(nodes, filename):
     try:
         with open(filepath, 'w') as f:
             f.write(dump)
+        return ExportFile(filename=filename, n_nodes=len(nodes))
     except IOError as er:
         print(er)
         sys.exit(1)
