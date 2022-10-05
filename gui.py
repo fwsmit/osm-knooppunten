@@ -212,7 +212,7 @@ class MainWindow(QtWidgets.QWidget):
         if self.importFile is None:
             return -1
 
-        self.runWindow = RunWindow(self.osmFile, self.importFile, self.filterRegion)
+        self.runWindow = RunWindow(self.osmFile, self.importFile, filterRegion)
         self.runWindow.resize(600, 400)
         self.runWindow.show()
 
