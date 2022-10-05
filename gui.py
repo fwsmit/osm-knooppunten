@@ -2,6 +2,7 @@ import traceback, sys
 from PySide6 import QtCore, QtWidgets
 from PySide6.QtCore import QRunnable, Signal, QObject
 from analyze import do_analysis
+# from resultsView import StringListModel
 
 def gui_do_analysis(osmFileName, importFile, filterRegion, progress):
         with open(str(osmFileName), 'r') as osmFile:
@@ -80,10 +81,10 @@ class RunWindow(QtWidgets.QWidget):
         self.importFile = importFile
         self.filterRegion = filterRegion
         self.setWindowTitle("Running analysis...")
-        vlayout = QtWidgets.QVBoxLayout(self)
+        self.vlayout = QtWidgets.QVBoxLayout(self)
         self.progressLabel = QtWidgets.QLabel("")
         self.progressLabel.setAlignment(QtCore.Qt.AlignCenter)
-        vlayout.addWidget(self.progressLabel)
+        self.vlayout.addWidget(self.progressLabel)
 
         self.threadpool = QtCore.QThreadPool()
 
@@ -103,6 +104,24 @@ class RunWindow(QtWidgets.QWidget):
     def thread_complete(self):
         print("Thread complete")
         self.setWindowTitle("Done with analysis")
+        self.progressLabel.setText("Results")
+        model = QtCore.QStringListModel()
+        self.table = QtWidgets.QTableWidget(len(self.results), 2, self)
+        self.table.setHorizontalHeaderLabels(["Filename", "Node count"])
+        for j in range(len(self.results)):
+            filenameItem = QtWidgets.QTableWidgetItem(self.results[j].filename)
+            filenameItem.setFlags(QtCore.Qt.ItemIsSelectable)
+            nodeCountItem = QtWidgets.QTableWidgetItem(str(self.results[j].n_nodes))
+            nodeCountItem.setFlags(QtCore.Qt.ItemIsSelectable)
+            self.table.setItem(j, 0, filenameItem)
+            self.table.setItem(j, 1, nodeCountItem)
+
+        self.table.verticalHeader().hide()
+        self.table.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
+        self.table.setSortingEnabled(True)
+
+        self.vlayout.addWidget(self.table)
+
 
 class MainWindow(QtWidgets.QWidget):
     def addFileSlot(self, fileSelectFunc, label, layout):
