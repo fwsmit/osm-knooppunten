@@ -110,15 +110,17 @@ class RunWindow(QtWidgets.QWidget):
         self.table.setHorizontalHeaderLabels(["Filename", "Node count"])
         for j in range(len(self.results)):
             filenameItem = QtWidgets.QTableWidgetItem(self.results[j].filename)
-            filenameItem.setFlags(QtCore.Qt.ItemIsSelectable)
+            filenameItem.setFlags(filenameItem.flags() & ~QtCore.Qt.ItemIsEditable)
             nodeCountItem = QtWidgets.QTableWidgetItem(str(self.results[j].n_nodes))
-            nodeCountItem.setFlags(QtCore.Qt.ItemIsSelectable)
+            nodeCountItem.setFlags(nodeCountItem.flags() & ~QtCore.Qt.ItemIsEditable)
             self.table.setItem(j, 0, filenameItem)
             self.table.setItem(j, 1, nodeCountItem)
 
         self.table.verticalHeader().hide()
         self.table.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
         self.table.setSortingEnabled(True)
+        self.table.setColumnWidth(0, 600)
+        self.table.horizontalHeader().setStretchLastSection(True)
 
         self.vlayout.addWidget(self.table)
 
