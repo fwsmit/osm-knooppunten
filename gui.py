@@ -1,4 +1,4 @@
-import traceback, sys
+import traceback, sys, os
 from PySide6 import QtCore, QtWidgets
 from PySide6.QtCore import QRunnable, Signal, QObject
 from analyze import do_analysis
@@ -104,6 +104,9 @@ class RunWindow(QtWidgets.QWidget):
 
     def buttonOpenFile(self):
         openFile(self.results[0].filepath)
+
+    def showInFolder(self):
+        openFile(os.path.dirname(self.results[0].filepath))
     
     def thread_complete(self):
         print("Thread complete")
@@ -128,9 +131,9 @@ class RunWindow(QtWidgets.QWidget):
 
         self.vlayout.addWidget(self.table)
 
-        self.openButton = QtWidgets.QPushButton("Open in JOSM")
+        self.openButton = QtWidgets.QPushButton("Show in folder")
         self.vlayout.addWidget(self.openButton)
-        self.openButton.clicked.connect(self.buttonOpenFile)
+        self.openButton.clicked.connect(self.showInFolder)
 
 
 class MainWindow(QtWidgets.QWidget):
