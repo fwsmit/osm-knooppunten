@@ -74,7 +74,7 @@ def export_geojson(nodes, filename):
     try:
         with open(filepath, 'w') as f:
             f.write(dump)
-        return ExportFile(filename=filename, n_nodes=len(nodes))
+        return ExportFile(filename=filename, filepath=filepath, n_nodes=len(nodes))
     except IOError as er:
         print(er)
         sys.exit(1)

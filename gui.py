@@ -2,6 +2,7 @@ import traceback, sys
 from PySide6 import QtCore, QtWidgets
 from PySide6.QtCore import QRunnable, Signal, QObject
 from analyze import do_analysis
+from open_file import openFile
 # from resultsView import StringListModel
 
 def gui_do_analysis(osmFileName, importFile, filterRegion, progress):
@@ -100,6 +101,9 @@ class RunWindow(QtWidgets.QWidget):
     def thread_progress(self, progress):
         print(progress)
         self.progressLabel.setText(progress)
+
+    def buttonOpenFile(self):
+        openFile(self.results[0].filepath)
     
     def thread_complete(self):
         print("Thread complete")
@@ -123,6 +127,10 @@ class RunWindow(QtWidgets.QWidget):
         self.table.horizontalHeader().setStretchLastSection(True)
 
         self.vlayout.addWidget(self.table)
+
+        self.openButton = QtWidgets.QPushButton("Open in JOSM")
+        self.vlayout.addWidget(self.openButton)
+        self.openButton.clicked.connect(self.buttonOpenFile)
 
 
 class MainWindow(QtWidgets.QWidget):
