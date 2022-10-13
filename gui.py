@@ -126,7 +126,7 @@ class RunWindow(QtWidgets.QWidget):
         self.table.verticalHeader().hide()
         self.table.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
         self.table.setSortingEnabled(True)
-        self.table.setColumnWidth(0, 600)
+        self.table.setColumnWidth(0, 450)
         self.table.horizontalHeader().setStretchLastSection(True)
 
         self.vlayout.addWidget(self.table)
