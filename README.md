@@ -46,13 +46,13 @@ analysis. This will open a new window that will eventually display the results.
 The results window shows a table of different node categories. All nodes from
 the import dataset have been categorized in one of the following categories:
 
-- Renamed: Node is still in the same place, but has a different number
-- Removed: Node is not present in import dataset, but is in OSM
-- Added: Node is not present in OSM, but is in the import dataset
-- No change: Nothing is different between the OSM and import node
-- Moved short distance: Node moved a distance of <100m
-- Moved long distance: Node moved a distance of 100-1000m
-- Other: Could not be determined to be in one of the above categories
+- `Renamed`: Node is still in the same place, but has a different number
+- `Removed`: Node is not present in import dataset, but is in OSM
+- `Added`: Node is not present in OSM, but is in the import dataset
+- `No change`: Nothing is different between the OSM and import node
+- `Moved short distance`: Node moved a distance of <100m
+- `Moved long distance`: Node moved a distance of 100-1000m
+- `Other`: Could not be determined to be in one of the above categories
 
 All results are exported to geojson.
 
