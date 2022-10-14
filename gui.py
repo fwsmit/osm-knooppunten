@@ -206,8 +206,8 @@ class MainWindow(QtWidgets.QWidget):
     def selectImportFile(self):
         self.importFile, selectedFilter = QtWidgets.QFileDialog.getOpenFileName(self,
                 "Select import file",
-                filter="All Files (*);;GeoJSOSN Files (*.json, *.geojson)",
-                selectedFilter="GeoJSOSN Files (*.json, *.geojson)")
+                filter="All Files (*);;GeoJSON Files (*.geojson *.json)",
+                selectedFilter="GeoJSON Files (*.geojson *.json)")
 
         self.text2.setText(self.importFile)
 
