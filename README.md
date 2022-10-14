@@ -54,7 +54,9 @@ the import dataset have been categorized in one of the following categories:
 - `Moved long distance`: Node moved a distance of 100-1000m
 - `Other`: Could not be determined to be in one of the above categories
 
-All results are exported to geojson.
+All results are exported to geojson. You can open them in JOSM to analyze them
+further and make changes to OSM. All nodes in the export have metadata tagged
+to thme with their node numbers in the import dataset.
 
 # Data sources
 
