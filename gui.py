@@ -5,10 +5,9 @@ from analyze import do_analysis
 from open_file import openFile
 # from resultsView import StringListModel
 
-def gui_do_analysis(osmFileName, importFile, filterRegion, progress):
+def gui_do_analysis(osmFileName, importFile, filterRegion, filterProvince, progress):
         with open(str(osmFileName), 'r') as osmFile:
-            return do_analysis(osmFile, importFile, filterRegion, None, progress=progress)
-
+            return do_analysis(osmFile, importFile, filterRegion, filterProvince, progress=progress)
 
 class WorkerSignals(QObject):
     '''
@@ -75,12 +74,13 @@ class Worker(QRunnable):
 
 
 class RunWindow(QtWidgets.QWidget):
-    def __init__(self, osmFileName, importFile, filterRegion):
+    def __init__(self, osmFileName, importFile, filterRegion, filterProvince):
         super().__init__()
         print("started run window")
         self.osmFileName = osmFileName
         self.importFile = importFile
         self.filterRegion = filterRegion
+        self.filterProvince = filterProvince
         self.setWindowTitle("Running analysis...")
         self.vlayout = QtWidgets.QVBoxLayout(self)
         self.progressLabel = QtWidgets.QLabel("")
@@ -89,7 +89,7 @@ class RunWindow(QtWidgets.QWidget):
 
         self.threadpool = QtCore.QThreadPool()
 
-        worker = Worker(gui_do_analysis, osmFileName, importFile, filterRegion)
+        worker = Worker(gui_do_analysis, osmFileName, importFile, filterRegion, filterProvince)
         worker.signals.result.connect(self.thread_results)
         worker.signals.finished.connect(self.thread_complete)
         worker.signals.progress.connect(self.thread_progress)
@@ -156,7 +156,7 @@ class MainWindow(QtWidgets.QWidget):
 
         return text, hlayout
 
-    def addFilterRegionWidgets(self, label, layout):
+    def addFilterWidget(self, label, layout):
         label = QtWidgets.QLabel(label)
         text = QtWidgets.QLineEdit()
 
@@ -184,7 +184,7 @@ class MainWindow(QtWidgets.QWidget):
         # Add import file and filter region in the same layout
         vlayout2 = QtWidgets.QVBoxLayout()
         self.text2, groupbox2 = self.addFileSlot(self.selectImportFile, "Import file:", vlayout2)
-        self.filterRegion = self.addFilterRegionWidgets("Filter region:", vlayout2)
+        self.filterProvince = self.addFilterWidget("Filter province:", vlayout2)
         groupbox = QtWidgets.QGroupBox()
         groupbox.setLayout(vlayout2)
         vlayout.addWidget(groupbox)
@@ -215,9 +215,9 @@ class MainWindow(QtWidgets.QWidget):
     def startAnalysis(self):
         print(self.osmFile)
         print(self.importFile)
-        filterRegion = self.filterRegion.text()
-        if len(filterRegion) == 0:
-            filterRegion = None
+        filterProvince = self.filterProvince.text()
+        if len(filterProvince) == 0:
+            filterProvince = None
 
         if self.osmFile is None:
             return -1
@@ -225,7 +225,7 @@ class MainWindow(QtWidgets.QWidget):
         if self.importFile is None:
             return -1
 
-        self.runWindow = RunWindow(self.osmFile, self.importFile, filterRegion)
+        self.runWindow = RunWindow(self.osmFile, self.importFile, None, filterProvince)
         self.runWindow.resize(600, 400)
         self.runWindow.show()
 
