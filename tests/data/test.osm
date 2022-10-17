@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='26983966' timestamp='2020-08-09T09:02:58Z' uid='6017166' user='test' visible='true' version='10' changeset='89147579' lat='53.23' lon='6.57'>
+    <tag k='expected_rcn_route_relations' v='3' />
+    <tag k='expected_rwn_route_relations' v='3' />
+    <tag k='network:type' v='node_network' />
+    <tag k='rcn_ref' v='89' />
+    <tag k='rwn_ref' v='82' />
+  </node>
+  <node id='27382283' timestamp='2019-09-24T22:08:00Z' uid='3216889' user='test' visible='true' version='9' changeset='74878985' lat='53.20' lon='6.54'>
+    <tag k='expected_rwn_route_relations' v='3' />
+    <tag k='network:type' v='node_network' />
+    <tag k='rwn_ref' v='50' />
+  </node>
+  <node id='29209091' timestamp='2019-09-27T13:54:06Z' uid='3216889' user='test' visible='true' version='8' changeset='75010997' lat='53.19' lon='6.53'>
+    <tag k='expected_rwn_route_relations' v='3' />
+    <tag k='network:type' v='node_network' />
+    <tag k='rwn_ref' v='19' />
+  </node>
+</osm>

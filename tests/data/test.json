@@ -1,0 +1,54 @@
+
+{
+    "type": "FeatureCollection",
+    "generator": "JOSM",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "expected_rwn_route_relations": "3",
+                "network:type": "node_network",
+                "rwn_ref": "19"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    6.53000000000,
+                    53.19000000000
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "expected_rcn_route_relations": "3",
+                "expected_rwn_route_relations": "3",
+                "network:type": "node_network",
+                "rcn_ref": "89",
+                "rwn_ref": "82"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    6.57000000000,
+                    53.23000000000
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "expected_rwn_route_relations": "3",
+                "network:type": "node_network",
+                "rwn_ref": "50"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    6.54000000000,
+                    53.20000000000
+                ]
+            }
+        }
+    ]
+}
