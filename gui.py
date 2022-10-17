@@ -7,7 +7,7 @@ from open_file import openFile
 
 def gui_do_analysis(osmFileName, importFile, filterRegion, progress):
         with open(str(osmFileName), 'r') as osmFile:
-            return do_analysis(osmFile, importFile, filterRegion, progress=progress)
+            return do_analysis(osmFile, importFile, filterRegion, None, progress=progress)
 
 
 class WorkerSignals(QObject):

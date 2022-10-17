@@ -7,7 +7,7 @@ from compare import dist_complicated
 from osm_knooppunten import helper
 from export import ExportFile
 
-def import_geojson(filename, rwn_name = None, rcn_name = None, filter_regio = None):
+def import_geojson(filename, rwn_name = None, rcn_name = None, filter_regio = None, filter_province = None):
     try:
         with open(filename, 'r') as file:
             data = geojson.load(file)
@@ -21,6 +21,9 @@ def import_geojson(filename, rwn_name = None, rcn_name = None, filter_regio = No
     for node_data in data['features']:
         rwn_ref_id = -1
         if filter_regio and node_data['properties']["regio"] != filter_regio:
+            continue
+
+        if filter_province and node_data['properties']["provincie"] != filter_province:
             continue
 
         if rwn_name:

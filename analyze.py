@@ -81,10 +81,10 @@ def get_node_change_type_ext(node_ext, nodes_osm, nodes_ext):
 
     return ChangeType.OTHER
 
-def do_analysis(osmfile, importfilename, filter_region, progress):
+def do_analysis(osmfile, importfilename, filter_region, filter_province, progress):
     progress.emit("Importing data")
     nodes_osm = import_osm(osmfile)
-    nodes_ext, nodes_ext_invalid = import_geojson(importfilename, rwn_name="knooppuntnummer", filter_regio=filter_region)
+    nodes_ext, nodes_ext_invalid = import_geojson(importfilename, rwn_name="knooppuntnummer", filter_regio=filter_region, filter_province=filter_province)
     progress.emit("Finished importing data")
 
     print("OSM dataset:", osmfile.name, "({} nodes)".format(len(nodes_osm)))
