@@ -114,3 +114,9 @@ Or for Windows users:
 For more detail about the arguments, run:
 
 	python knooppunten-cli.py -h
+
+# Testing
+
+To run the unit tests, use the following command (from the main directory):
+
+        python -m tests.runner
