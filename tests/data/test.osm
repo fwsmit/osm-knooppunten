@@ -16,6 +16,6 @@
     <tag k='expected_rwn_route_relations' v='3' />
     <tag k='network:type' v='node_network' />
     <tag k='rwn_ref' v='19' />
-    <tag k='rcn_ref' v='19' />
+    <tag k='rcn_ref' v='09' />
   </node>
 </osm>

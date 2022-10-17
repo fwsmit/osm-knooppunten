@@ -10,5 +10,5 @@ class TestImport(unittest.TestCase):
         self.assertEqual(nodes[0].rwn_ref, '82')
         self.assertEqual(nodes[0].rcn_ref, '89')
         self.assertEqual(nodes[1].rcn_ref, None)
-        self.assertEqual(nodes[2].rcn_ref, '19')
+        self.assertEqual(nodes[2].rcn_ref, '9')
         self.assertEqual(nodes[2].lon, 6.53)
