@@ -13,6 +13,11 @@ class OSMContentHandler(xml.sax.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == "node":
+            # reset ref numbers
+            self.rwn_ref = None
+            self.rcn_ref = None
+
+            # pares latitude and longtitude
             self.lat = attrs["lat"]
             self.lon = attrs["lon"]
 
