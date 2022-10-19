@@ -1,5 +1,19 @@
 This programs compares OSM walking route data to that of other data sets.
 
+# Goals
+
+The main goal for this tool is to help importing walking and cycling route data
+into OpenStreetMap.
+
+- Analyze differences in walking and cycling routes
+- Categorize changes in helpful categories
+- Make these things available in a simple graphical tool
+
+# Current state
+
+This tool is still under active development. Currently it can only analyze
+walking nodes. It's built with the dataset from Routedabank.nl in mind, but it
+can be expanded for other datasets in the future.
 
 # Installation
 
