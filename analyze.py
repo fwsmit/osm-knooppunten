@@ -81,20 +81,7 @@ def get_node_change_type_ext(node_ext, nodes_osm, nodes_ext):
 
     return ChangeType.OTHER
 
-def do_analysis(osmfile, importfilename, filter_region, filter_province, progress):
-    progress.emit("Importing data")
-    nodes_osm = import_osm(osmfile)
-    nodes_ext, nodes_ext_invalid = import_geojson(importfilename, rwn_name="knooppuntnummer", filter_regio=filter_region, filter_province=filter_province)
-    progress.emit("Finished importing data")
-
-    print("OSM dataset:", osmfile.name, "({} nodes)".format(len(nodes_osm)))
-
-    if (filter_region):
-        print("External dataset: {}, filtered by region '{}' ({} nodes)".format(importfilename, filter_region, len(nodes_ext)))
-    else:
-        print("External dataset:", importfilename, "({} nodes)".format(len(nodes_ext)))
-    print()
-
+def do_analysis_internal(nodes_osm, nodes_ext, progress):
     for node in nodes_ext:
         best_match = find_matching_point(node, nodes_osm)
         if best_match:
@@ -184,3 +171,20 @@ def do_analysis(osmfile, importfilename, filter_region, filter_province, progres
         exported_files.append(export_file)
     progress.emit("Done")
     return exported_files
+
+def do_analysis(osmfile, importfilename, filter_region, filter_province, progress):
+    progress.emit("Importing data")
+    nodes_osm = import_osm(osmfile)
+    nodes_ext, nodes_ext_invalid = import_geojson(importfilename, rwn_name="knooppuntnummer", filter_regio=filter_region, filter_province=filter_province)
+    progress.emit("Finished importing data")
+
+    print("OSM dataset:", osmfile.name, "({} nodes)".format(len(nodes_osm)))
+
+    if (filter_region):
+        print("External dataset: {}, filtered by region '{}' ({} nodes)".format(importfilename, filter_region, len(nodes_ext)))
+    else:
+        print("External dataset:", importfilename, "({} nodes)".format(len(nodes_ext)))
+    print()
+
+    return do_analysis_internal(nodes_osm, nodes_ext, progress)
+
