@@ -1,5 +1,6 @@
 import unittest
 from import_osm import import_osm
+from import_geojson import import_geojson
 
 class TestImport(unittest.TestCase):
 
@@ -12,3 +13,7 @@ class TestImport(unittest.TestCase):
         self.assertEqual(nodes[1].rcn_ref, None)
         self.assertEqual(nodes[2].rcn_ref, '9')
         self.assertEqual(nodes[2].lon, 6.53)
+
+    def test_geojson(self):
+        nodes, invalid_nodes = import_geojson("tests/data/test.json", rwn_name="knooppuntnummer")
+        self.assertEqual(len(nodes), 4)

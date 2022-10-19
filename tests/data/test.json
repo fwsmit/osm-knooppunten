@@ -1,54 +1,95 @@
-
 {
-    "type": "FeatureCollection",
-    "generator": "JOSM",
-    "features": [
-        {
-            "type": "Feature",
-            "properties": {
-                "expected_rwn_route_relations": "3",
-                "network:type": "node_network",
-                "rwn_ref": "19"
-            },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    6.53000000000,
-                    53.19000000000
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "expected_rcn_route_relations": "3",
-                "expected_rwn_route_relations": "3",
-                "network:type": "node_network",
-                "rcn_ref": "89",
-                "rwn_ref": "82"
-            },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    6.57000000000,
-                    53.23000000000
-                ]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "expected_rwn_route_relations": "3",
-                "network:type": "node_network",
-                "rwn_ref": "50"
-            },
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    6.54000000000,
-                    53.20000000000
-                ]
-            }
-        }
-    ]
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "wandelknooppunten_vrij_wgs84.98",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.37550516,
+          52.09263921
+        ]
+      },
+      "geometry_name": "wkb_geometry",
+      "properties": {
+        "knooppuntnummer": "77",
+        "regio": "Duin, Horst en Weide",
+        "provincie": "Zuid-Holland",
+        "puntid": 177686,
+        "last_edited_date": "2019-11-20T11:13:34+01:00",
+        "soort_knooppunt": "knooppunt"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wandelknooppunten_vrij_wgs84.1",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.64449962,
+          52.0745014
+        ]
+      },
+      "geometry_name": "wkb_geometry",
+      "properties": {
+        "knooppuntnummer": "57",
+        "regio": "Lunteren",
+        "provincie": "Gelderland",
+        "puntid": 162757,
+        "last_edited_date": "2019-11-19T10:01:56+01:00",
+        "soort_knooppunt": "keuzepunt"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wandelknooppunten_vrij_wgs84.27202",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.76360152,
+          52.21845444
+        ]
+      },
+      "geometry_name": "wkb_geometry",
+      "properties": {
+        "knooppuntnummer": "78",
+        "regio": "Rijn- en Veenstreek, Gouwe Wiericke en Zoeterwoude",
+        "provincie": "Zuid-Holland",
+        "puntid": 2003839,
+        "last_edited_date": "2022-07-11T08:06:41+02:00",
+        "soort_knooppunt": "knooppunt"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wandelknooppunten_vrij_wgs84.2",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.66503187,
+          52.0829259
+        ]
+      },
+      "geometry_name": "wkb_geometry",
+      "properties": {
+        "knooppuntnummer": "53",
+        "regio": "Lunteren",
+        "provincie": "Gelderland",
+        "puntid": 162756,
+        "last_edited_date": "2019-11-19T10:01:56+01:00",
+        "soort_knooppunt": "keuzepunt"
+      }
+    }
+  ],
+  "totalFeatures": 27208,
+  "numberMatched": 27208,
+  "numberReturned": 27208,
+  "timeStamp": "2022-10-14T08:59:14.202Z",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:EPSG::4326"
+    }
+  }
 }
