@@ -81,7 +81,7 @@ def get_node_change_type_ext(node_ext, nodes_osm, nodes_ext):
 
     return ChangeType.OTHER
 
-def do_analysis_internal(nodes_osm, nodes_ext, progress):
+def do_analysis_internal(nodes_osm, nodes_ext, nodes_ext_invalid, progress):
     for node in nodes_ext:
         best_match = find_matching_point(node, nodes_osm)
         if best_match:
@@ -186,5 +186,5 @@ def do_analysis(osmfile, importfilename, filter_region, filter_province, progres
         print("External dataset:", importfilename, "({} nodes)".format(len(nodes_ext)))
     print()
 
-    return do_analysis_internal(nodes_osm, nodes_ext, progress)
+    return do_analysis_internal(nodes_osm, nodes_ext, nodes_ext_invalid, progress)
 
