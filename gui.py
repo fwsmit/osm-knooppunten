@@ -99,7 +99,6 @@ class RunWindow(QtWidgets.QWidget):
         self.results = results
 
     def thread_progress(self, progress):
-        print(progress)
         self.progressLabel.setText(progress)
 
     def buttonOpenFile(self):
