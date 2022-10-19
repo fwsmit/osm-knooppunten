@@ -17,3 +17,4 @@ class TestImport(unittest.TestCase):
     def test_geojson(self):
         nodes, invalid_nodes = import_geojson("tests/data/test.json", rwn_name="knooppuntnummer")
         self.assertEqual(len(nodes), 4)
+        self.assertEqual(len(invalid_nodes), 1)

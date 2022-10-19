@@ -63,6 +63,26 @@
     },
     {
       "type": "Feature",
+      "id": "wandelknooppunten_vrij_wgs84.27202",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.76360152,
+          52.21845444
+        ]
+      },
+      "geometry_name": "wkb_geometry",
+      "properties": {
+        "knooppuntnummer": "0",
+        "regio": "Rijn- en Veenstreek, Gouwe Wiericke en Zoeterwoude",
+        "provincie": "Zuid-Holland",
+        "puntid": 2003839,
+        "last_edited_date": "2022-07-11T08:06:41+02:00",
+        "soort_knooppunt": "knooppunt"
+      }
+    },
+    {
+      "type": "Feature",
       "id": "wandelknooppunten_vrij_wgs84.2",
       "geometry": {
         "type": "Point",
