@@ -82,6 +82,7 @@ def get_node_change_type_ext(node_ext, nodes_osm, nodes_ext):
     return ChangeType.OTHER
 
 def do_analysis_internal(nodes_osm, nodes_ext, nodes_ext_invalid, progress):
+    i = 0
     for node in nodes_ext:
         best_match = find_matching_point(node, nodes_osm)
         if best_match:
@@ -92,6 +93,8 @@ def do_analysis_internal(nodes_osm, nodes_ext, nodes_ext_invalid, progress):
             else:
                 best_match.bad_matching_nodes.append(node)
                 node.bad_matching_nodes.append(best_match)
+        i = i + 1
+        progress.emit("Pre-processing nodes {}/{}".format(i, len(nodes_ext)))
 
     ext_match_0 = []
     ext_match_1 = []
@@ -141,14 +144,11 @@ def do_analysis_internal(nodes_osm, nodes_ext, nodes_ext_invalid, progress):
         node_changes_dict[key] = []
 
     i = 0;
-    pr = 0;
     for node in nodes_ext:
         # print("Node", i)
         change_type = get_node_change_type_ext(node, nodes_osm, nodes_ext)
         node_changes_dict[change_type].append(node)
         i += 1
-        pr = i/len(nodes_ext)
-        # print("Progress", progress)
         progress.emit("Analyzing nodes {}/{}".format(i, len(nodes_ext)))
 
 
@@ -176,7 +176,6 @@ def do_analysis(osmfile, importfilename, filter_region, filter_province, progres
     progress.emit("Importing data")
     nodes_osm = import_osm(osmfile)
     nodes_ext, nodes_ext_invalid = import_geojson(importfilename, rwn_name="knooppuntnummer", filter_regio=filter_region, filter_province=filter_province)
-    progress.emit("Finished importing data")
 
     print("OSM dataset:", osmfile.name, "({} nodes)".format(len(nodes_osm)))
 
