@@ -57,7 +57,6 @@ def get_node_change_type_ext(node_ext, nodes_osm, nodes_ext):
     all_matching_nodes.extend(node_ext.bad_matching_nodes)
 
     if not all_matching_nodes or len(all_matching_nodes) == 0:
-        print("No matching nodes")
         return ChangeType.ADDED
     
     closest_match = find_closest_node(node_ext, all_matching_nodes)
