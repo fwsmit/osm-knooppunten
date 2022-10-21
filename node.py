@@ -12,6 +12,7 @@ class Node():
             self.rcn_ref = rcn_ref.lstrip("0")
         self.matching_nodes = []
         self.bad_matching_nodes = [] # matching nodes with a distance >100m
+        self.renamed_from = None # If the node is renamed, this has the old name (that is in OSM)
 
     @property
     def __geo_interface__(self):

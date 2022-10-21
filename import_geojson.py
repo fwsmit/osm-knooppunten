@@ -60,8 +60,12 @@ def export_geojson(nodes, filename):
 
         if closest_distance == math.inf:
             closest_distance = -1
+        if node.renamed_from:
+            properties_dict = {"rwn_ref": node.rwn_ref, "rcn_ref": node.rcn_ref, "distance closest node": closest_distance, "old_name": node.renamed_from}
+        else:
+            properties_dict = {"rwn_ref": node.rwn_ref, "rcn_ref": node.rcn_ref, "distance closest node": closest_distance}
 
-        feature = geojson.Feature(geometry=point, properties={"rwn_ref": node.rwn_ref, "rcn_ref": node.rcn_ref, "distance closest node": closest_distance})
+        feature = geojson.Feature(geometry=point, properties=properties_dict)
         features.append(feature)
 
     dump = geojson.dumps(features)

@@ -71,6 +71,7 @@ def get_node_change_type_ext(node_ext, nodes_osm, nodes_ext):
 
     # TODO: Should find next closest node if closest node has a match
     if closest_match_dist > 1000 and closest_node_dist < 10 and len(closest_node.matching_nodes) == 0:
+        node_ext.renamed_from = closest_node.rwn_ref
         return ChangeType.RENAMED
 
     if not all_matching_nodes or len(all_matching_nodes) == 0:
