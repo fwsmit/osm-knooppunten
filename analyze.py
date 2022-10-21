@@ -1,3 +1,4 @@
+import math
 from enum import Enum
 from compare import find_closest_node, dist_complicated
 from import_osm import import_osm
@@ -56,18 +57,27 @@ def get_node_change_type_ext(node_ext, nodes_osm, nodes_ext):
     all_matching_nodes = node_ext.matching_nodes
     all_matching_nodes.extend(node_ext.bad_matching_nodes)
 
-    if not all_matching_nodes or len(all_matching_nodes) == 0:
-        return ChangeType.ADDED
-    
     closest_match = find_closest_node(node_ext, all_matching_nodes)
-    closest_match_dist = dist_complicated(closest_match.lat, closest_match.lon, node_ext.lat, node_ext.lon)
+    if (closest_match):
+        closest_match_dist = dist_complicated(closest_match.lat, closest_match.lon, node_ext.lat, node_ext.lon)
+    else:
+        closest_match_dist = math.inf
 
     closest_node = find_closest_node(node_ext, nodes_osm)
-    closest_node_dist = dist_complicated(closest_node.lat, closest_node.lon, node_ext.lat, node_ext.lon)
+    if closest_node:
+        closest_node_dist = dist_complicated(closest_node.lat, closest_node.lon, node_ext.lat, node_ext.lon)
+    else:
+        closest_node_dist = math.inf
 
     # TODO: Should find next closest node if closest node has a match
     if closest_match_dist > 1000 and closest_node_dist < 10 and len(closest_node.matching_nodes) == 0:
         return ChangeType.RENAMED
+
+    if not all_matching_nodes or len(all_matching_nodes) == 0:
+        return ChangeType.ADDED
+
+    if closest_match_dist > 1000:
+        return ChangeType.ADDED
 
     if closest_match_dist > 1 and closest_match_dist < 100:
         return ChangeType.MOVED_SHORT
