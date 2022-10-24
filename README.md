@@ -30,12 +30,10 @@ Open a command prompt and install with:
 Then download the code repository from github. You can dowload the latest
 release (recommended) or the latest git version.
 
-To download the latest release, go to
-https://github.com/fwsmit/osm-knooppunten/releases/latest and download the
-source code (zip). Unzip this to a directory of your choice. Then you can
-proceed to running it.
+To download the [latest release](https://github.com/fwsmit/osm-knooppunten/releases/latest)
+and unzip it to a directory of your choice. Then you can proceed to running it.
 
-# Running (GUI)
+# Running
 
 It's easy to run this program with it's graphical interface. Simply run the
 file `knooppunten.py` that you just unzipped in python. To do this, right click
