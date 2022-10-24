@@ -87,14 +87,13 @@ This tool is written for comparing the data from OpenStreetMap and Routedatabank
 
 ## OSM data
 
-Below are the instructions to download the OSM data. This might be automated in
-the future with an overpass query.
+Below are instructions for gathering data from the overpass API.
 
-- Open JOSM with remote control enabled
-- Go to https://knooppuntnet.nl/nl/analysis/hiking
-- Select "Explore by network" on the left.
-- Navigate to the network you want to analyze
-- Click the edit button. The dataset will open in JOSM
+- Go to overpass-turbo.eu
+- Use the wizard to create a query with your region of choice. For
+  Noord-Brabant this would be: `rwn_ref=* and network:type=node_network and type:node in Noord-Brabant`
+- Run the query and export the results as geojson
+- Open the geojson file in JOSM
 - Click "file > save as" and save as .osm file
 
 You now have succesfully created a dataset that can be used by this program.
