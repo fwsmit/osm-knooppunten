@@ -19,7 +19,7 @@ def import_geojson(filename, rwn_name = None, rcn_name = None, filter_regio = No
     invalid_nodes = []
 
     for node_data in data['features']:
-        rwn_ref_id = "-1"
+        rwn_ref_id = None
         if filter_regio and node_data['properties']["regio"] != filter_regio:
             continue
 
@@ -29,7 +29,7 @@ def import_geojson(filename, rwn_name = None, rcn_name = None, filter_regio = No
         if rwn_name:
             rwn_ref_id = node_data['properties'][rwn_name]
 
-        rcn_ref_id = "-1"
+        rcn_ref_id = None
         if rcn_name:
             rcn_ref_id = node_data['properties'][rcn_name]
 
