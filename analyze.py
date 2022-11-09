@@ -72,24 +72,24 @@ def get_node_change_type_ext(node_ext, nodes_osm, nodes_ext):
     # TODO: Should find next closest node if closest node has a match
     if closest_match_dist > 1000 and closest_node_dist < 10 and len(closest_node.matching_nodes) == 0:
         node_ext.renamed_from = closest_node.rwn_ref
-        return ChangeType.RENAMED
+        return ChangeType.RENAMED, closest_node
 
     if not all_matching_nodes or len(all_matching_nodes) == 0:
-        return ChangeType.ADDED
+        return ChangeType.ADDED, None
 
     if closest_match_dist > 1000:
-        return ChangeType.ADDED
+        return ChangeType.ADDED, None
 
     if closest_match_dist > 1 and closest_match_dist < 100:
-        return ChangeType.MOVED_SHORT
+        return ChangeType.MOVED_SHORT, closest_match
 
     if closest_match_dist > 100 and closest_match_dist < 1000:
-        return ChangeType.MOVED_LONG
+        return ChangeType.MOVED_LONG, closest_match
 
     if closest_match_dist < 1:
-        return ChangeType.NO
+        return ChangeType.NO, closest_match
 
-    return ChangeType.OTHER
+    return ChangeType.OTHER, None
 
 def do_analysis_internal(nodes_osm, nodes_ext, nodes_ext_invalid, progress):
     i = 0
@@ -113,7 +113,18 @@ def do_analysis_internal(nodes_osm, nodes_ext, nodes_ext_invalid, progress):
     i = 0;
     for node in nodes_ext:
         # print("Node", i)
-        change_type = get_node_change_type_ext(node, nodes_osm, nodes_ext)
+        change_type, matched_node = get_node_change_type_ext(node, nodes_osm, nodes_ext)
+        if matched_node and matched_node.matched_node:
+            # The matched node was already matched to some other node
+            # TODO give better warning here
+            print("ERROR: Node was matched twice")
+
+        node.change_type = change_type
+        if matched_node:
+            matched_node.matched_node = node
+            matched_node.change_type = change_type
+            node.matched_node = matched_node
+
         node_changes_dict[change_type].append(node)
         i += 1
         progress.emit("Analyzing nodes {}/{}".format(i, len(nodes_ext)))
