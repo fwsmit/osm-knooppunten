@@ -11,6 +11,7 @@ class TestAnalysis(unittest.TestCase):
                 Node(lat=1, lon=1, rwn_ref="1", rcn_ref=None), # nothing changed
                 # added
                 Node(lat=2, lon=1, rwn_ref="1", rcn_ref=None), # renamed
+                Node(lat=2, lon=0, rwn_ref="1", rcn_ref=None), # removed
                 ]
         self.ext_nodes = [
                 Node(lat=1, lon=1.000001, rwn_ref="1", rcn_ref=None), # nothing changed
@@ -27,6 +28,7 @@ class TestAnalysis(unittest.TestCase):
         self.assertEqual(d["No change_ext.geojson"], 1)
         self.assertEqual(d["Added_ext.geojson"], 1)
         self.assertEqual(d["Renamed_ext.geojson"], 1)
+        self.assertEqual(d["Removed_osm.geojson"], 1)
 
     def test_compare_matching(self):
         self.assertEqual(find_matching_point(self.ext_nodes[0], self.osm_nodes), self.osm_nodes[0])

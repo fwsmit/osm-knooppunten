@@ -91,6 +91,19 @@ def get_node_change_type_ext(node_ext, nodes_osm, nodes_ext):
 
     return ChangeType.OTHER, None
 
+def is_node_removed_osm(node_osm, nodes_osm, nodes_ext):
+    all_matching_nodes = node_osm.matching_nodes
+    all_matching_nodes.extend(node_osm.bad_matching_nodes)
+
+    closest_match = find_closest_node(node_osm, all_matching_nodes)
+    if (closest_match):
+        closest_match_dist = dist_complicated(closest_match.lat, closest_match.lon, node_osm.lat, node_osm.lon)
+    else:
+        closest_match_dist = math.inf
+
+    if not all_matching_nodes or len(all_matching_nodes) == 0 or closes_match_dist > 1000:
+        return True
+
 def do_analysis_internal(nodes_osm, nodes_ext, nodes_ext_invalid, progress):
     i = 0
     for node in nodes_ext:
@@ -129,6 +142,12 @@ def do_analysis_internal(nodes_osm, nodes_ext, nodes_ext_invalid, progress):
         i += 1
         progress.emit("Analyzing nodes {}/{}".format(i, len(nodes_ext)))
 
+    for node in nodes_osm:
+        if not node.matched_node and is_node_removed_osm(node, nodes_osm, nodes_ext):
+            node.change_type = ChangeType.REMOVED
+            node_changes_dict[ChangeType.REMOVED].append(node)
+
+
     for key in node_changes_dict:
         print("{}: {}".format(key, len(node_changes_dict[key])))
 
@@ -137,7 +156,10 @@ def do_analysis_internal(nodes_osm, nodes_ext, nodes_ext_invalid, progress):
 
     exported_files = []
     for key in ChangeType:
-        export_file = export_geojson(node_changes_dict[key], "{}_ext.geojson".format(key))
+        if key == ChangeType.REMOVED:
+            export_file = export_geojson(node_changes_dict[key], "{}_osm.geojson".format(key))
+        else:
+            export_file = export_geojson(node_changes_dict[key], "{}_ext.geojson".format(key))
         exported_files.append(export_file)
     progress.emit("Done")
     return exported_files

@@ -13,6 +13,8 @@ class Node():
         self.matching_nodes = []
         self.bad_matching_nodes = [] # matching nodes with a distance >100m
         self.renamed_from = None # If the node is renamed, this has the old name (that is in OSM)
+        self.matched_node = None # Node that has been matched to this node by the analysis program
+        self.change_type = None # When matched, this gives the change type
 
     @property
     def __geo_interface__(self):
