@@ -113,7 +113,7 @@ def is_node_removed_osm(node_osm, nodes_osm, nodes_ext):
     else:
         closest_match_dist = math.inf
 
-    if not all_matching_nodes or len(all_matching_nodes) == 0 or closes_match_dist > 1000:
+    if not all_matching_nodes or len(all_matching_nodes) == 0 or closest_match_dist > 1000:
         return True
 
 def do_analysis_internal(nodes_osm, nodes_ext, nodes_ext_invalid, progress):
