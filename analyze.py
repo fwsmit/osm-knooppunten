@@ -106,49 +106,6 @@ def do_analysis_internal(nodes_osm, nodes_ext, nodes_ext_invalid, progress):
         i = i + 1
         progress.emit("Pre-processing nodes {}/{}".format(i, len(nodes_ext)))
 
-    ext_match_0 = []
-    ext_match_1 = []
-    for node in nodes_ext:
-        n_matches = len(node.matching_nodes)
-
-        if n_matches == 0:
-            ext_match_0.append(node)
-        elif n_matches == 1:
-            ext_match_1.append(node)
-        else:
-            print("Error: external node is matched with multiple OSM nodes")
-
-    osm_match_0 = []
-    osm_match_1 = []
-    osm_match_2 = []
-    osm_match_gt_2 = []
-    for node in nodes_osm:
-        n_matches = len(node.matching_nodes)
-
-        if n_matches == 0:
-            osm_match_0.append(node)
-        elif n_matches == 1:
-            osm_match_1.append(node)
-        elif n_matches == 2:
-            osm_match_2.append(node)
-        else:
-            osm_match_gt_2.append(node)
-
-    new_nodes_ext = []
-    renamed_nodes_ext = []
-    unsure_nodes_ext = []
-    # Try to find new nodes
-    for node in ext_match_0:
-        closest_node = find_closest_node(node, nodes_osm)
-        dist = dist_complicated(closest_node.lat, closest_node.lon, node.lat, node.lon)
-        if dist > 100:
-            # Not near any node, so it must be new
-            new_nodes_ext.append(node)
-        elif dist < 10:
-            renamed_nodes_ext.append(node)
-        else:
-            unsure_nodes_ext.append(node)
-    
     node_changes_dict = dict()
     for key in ChangeType:
         node_changes_dict[key] = []
@@ -161,18 +118,10 @@ def do_analysis_internal(nodes_osm, nodes_ext, nodes_ext_invalid, progress):
         i += 1
         progress.emit("Analyzing nodes {}/{}".format(i, len(nodes_ext)))
 
-
-    print("#### Analysis results ####")
-    print()
-    print("## Fault analysis ##")
-    print("Invalid nodes (external): ", len(nodes_ext_invalid))
-    print()
-    print("## Node changes ##")
     for key in node_changes_dict:
         print("{}: {}".format(key, len(node_changes_dict[key])))
 
     progress.emit("Exporting results")
-    print("## Exporting changes ##")
     export_geojson(nodes_ext_invalid, "invalid_nodes_ext.geojson")
 
     exported_files = []
