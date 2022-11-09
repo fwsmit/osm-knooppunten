@@ -4,6 +4,7 @@ from compare import find_closest_node, dist_complicated
 from import_osm import import_osm
 from import_geojson import import_geojson, export_geojson
 from compare import find_matching_point, dist_complicated, find_closest_node
+from osm_knooppunten.helper import is_small_rename
 from _version import __version__
 
 class ChangeType(Enum):
@@ -17,7 +18,7 @@ class ChangeType(Enum):
     ADDED = 3
 
     # Close to node in other dataset with a different name. The other node
-    # doesn't have a matching node either.
+    # doesn't have a matching node either. Minor renames are classified as RENAMED_MINOR
     RENAMED = 4
 
     # Matches with a node in the other dataset with distance 1-100m
@@ -28,6 +29,11 @@ class ChangeType(Enum):
 
     # None of the others
     OTHER = 7
+
+    # Same as renamed, but used for minor renames. This is used when the
+    # difference is just a couple of letters. When it's a different number,
+    # it's classified as a normal rename.
+    RENAMED_MINOR = 8
 
     def __str__(self):
         if self == ChangeType.NO:
@@ -41,6 +47,9 @@ class ChangeType(Enum):
 
         if self == ChangeType.RENAMED:
             return "Renamed"
+
+        if self == ChangeType.RENAMED_MINOR:
+            return "Minor rename"
 
         if self == ChangeType.MOVED_SHORT:
             return "Moved short distance"
@@ -72,7 +81,10 @@ def get_node_change_type_ext(node_ext, nodes_osm, nodes_ext):
     # TODO: Should find next closest node if closest node has a match
     if closest_match_dist > 1000 and closest_node_dist < 10 and len(closest_node.matching_nodes) == 0:
         node_ext.renamed_from = closest_node.rwn_ref
-        return ChangeType.RENAMED, closest_node
+        if is_small_rename(node_ext.rwn_ref, closest_node.rwn_ref):
+            return ChangeType.RENAMED_MINOR, closest_node
+        else:
+            return ChangeType.RENAMED, closest_node
 
     if not all_matching_nodes or len(all_matching_nodes) == 0:
         return ChangeType.ADDED, None

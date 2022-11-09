@@ -68,6 +68,8 @@ The results window shows a table of different node categories. All nodes from
 the import dataset have been categorized in one of the following categories:
 
 - `Renamed`: Node is still in the same place, but has a different number
+- `Minor rename`: Same as rename, but used for minor renames. This is when node
+  differs in name by only a few letters.
 - `Removed`: Node is not present in import dataset, but is in OSM
 - `Added`: Node is not present in OSM, but is in the import dataset
 - `No change`: Nothing is different between the OSM and import node

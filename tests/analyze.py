@@ -11,12 +11,14 @@ class TestAnalysis(unittest.TestCase):
                 Node(lat=1, lon=1, rwn_ref="1", rcn_ref=None), # nothing changed
                 # added
                 Node(lat=2, lon=1, rwn_ref="1", rcn_ref=None), # renamed
+                Node(lat=3, lon=3, rwn_ref="1", rcn_ref=None), # renamed
                 Node(lat=2, lon=0, rwn_ref="1", rcn_ref=None), # removed
                 ]
         self.ext_nodes = [
                 Node(lat=1, lon=1.000001, rwn_ref="1", rcn_ref=None), # nothing changed
                 Node(lat=2, lon=2, rwn_ref="2", rcn_ref=None), # added
                 Node(lat=2, lon=1, rwn_ref="3", rcn_ref=None), # renamed
+                Node(lat=3, lon=3, rwn_ref="1a", rcn_ref=None), # Minor rename
                 ]
 
     def test_run(self):
@@ -28,6 +30,7 @@ class TestAnalysis(unittest.TestCase):
         self.assertEqual(d["No change_ext.geojson"], 1)
         self.assertEqual(d["Added_ext.geojson"], 1)
         self.assertEqual(d["Renamed_ext.geojson"], 1)
+        self.assertEqual(d["Minor rename_ext.geojson"], 1)
         self.assertEqual(d["Removed_osm.geojson"], 1)
 
     def test_compare_matching(self):
