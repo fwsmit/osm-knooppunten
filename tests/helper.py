@@ -1,5 +1,5 @@
 import unittest
-from osm_knooppunten.helper import is_number_valid
+from osm_knooppunten.helper import is_number_valid, is_small_rename
 
 class TestImport(unittest.TestCase):
 
@@ -16,3 +16,12 @@ class TestImport(unittest.TestCase):
         self.assertFalse(is_number_valid("?"))
         self.assertFalse(is_number_valid("0"))
         self.assertFalse(is_number_valid(""))
+
+    def test_helper(self):
+        self.assertTrue(is_small_rename("12a", "12"))
+        self.assertTrue(is_small_rename("12", "12a"))
+        self.assertTrue(is_small_rename("12", "12A"))
+        self.assertTrue(is_small_rename("12B", "12A"))
+        self.assertFalse(is_small_rename("12", "123"))
+        self.assertFalse(is_small_rename("12", "13"))
+        self.assertFalse(is_small_rename("123", "12"))
